@@ -7,8 +7,23 @@
 //
 
 #import "UIView+RHAdd.h"
+#import <objc/runtime.h>
+
+static char rh_indexPathKey;
 
 @implementation UIView (RHAdd)
+
+/* 位置标记 */
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    
+    objc_setAssociatedObject(self, &rh_indexPathKey, indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSIndexPath *)indexPath {
+    
+    return objc_getAssociatedObject(self, &rh_indexPathKey);
+}
+
 
 /**
  移除所有子视图

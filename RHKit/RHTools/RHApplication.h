@@ -13,6 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RHApplication : NSObject
 
 /**
+ app name
+ 
+ @return app name
+ */
++ (NSString *)appName;
+
+/**
  app bundle name
  
  @return app bundle name

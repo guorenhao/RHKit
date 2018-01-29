@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (RHAdd)
 
+/* 位置标记 */
+@property (nonatomic, strong) NSIndexPath * indexPath;
+
+
 /**
  移除所有子视图
  */

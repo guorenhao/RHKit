@@ -31,6 +31,29 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (CGFloat)getWidthByText:(NSString *)text font:(UIFont *)font;
 
+#pragma mark - 权限相关
+
+/**
+ 请求麦克风权限
+ 
+ @param completionHandler 完成回调
+ */
++ (void)requestMacrophoneAuthorization:(nullable void(^)(BOOL granted))completionHandler;
+
+/**
+ 请求相册权限
+ 
+ @param completionHandler 完成回调
+ */
++ (void)requestPhotoAuthorization:(nullable void(^)(BOOL granted))completionHandler;
+
+/**
+ 请求相机权限
+ 
+ @param completionHandler 完成回调
+ */
++ (void)requestCameraAuthorization:(nullable void(^)(BOOL granted))completionHandler;
+
 
 @end
 

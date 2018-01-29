@@ -11,6 +11,16 @@
 @implementation RHApplication
 
 /**
+ app name
+ 
+ @return app name
+ */
++ (NSString *)appName {
+    
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+}
+
+/**
  app bundle name
  
  @return app bundle name
