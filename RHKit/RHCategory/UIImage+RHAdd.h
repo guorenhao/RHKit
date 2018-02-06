@@ -12,22 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (RHAdd)
 
-/**
- 纯色图片
- 
- @param color 图片颜色
- @return      图片
- */
-+ (UIImage *)imageWithColor:(UIColor *)color;
-
-/**
- 带有圆角的纯色图片
- 
- @param color   图片颜色
- @param radius  圆角
- @return        图片
- */
-+ (UIImage *)imageWithColor:(UIColor *)color radius:(CGFloat)radius;
 
 /**
  带尺寸的纯色图片
@@ -47,6 +31,22 @@ NS_ASSUME_NONNULL_BEGIN
  @return       图片
  */
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size radius:(CGFloat)radius;
+
+/**
+ 通过view生成图片
+ 
+ @param view  要生成图片的view
+ @return      view图片
+ */
++ (UIImage *)imageWithView:(UIView *)view;
+
+/**
+ 拉伸图片到指定尺寸
+ 
+ @param newSize 要拉伸的尺寸
+ @return        拉伸后的图片
+ */
+- (UIImage *)scaleToSize:(CGSize)newSize;
 
 @end
 

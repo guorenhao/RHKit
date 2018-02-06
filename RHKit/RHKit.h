@@ -12,6 +12,8 @@
 
 #import <RHKit/NSData+RHAdd.h>
 #import <RHKit/NSString+RHAdd.h>
+#import <RHKit/NSArray+RHAdd.h>
+#import <RHKit/NSDictionary+RHAdd.h>
 #import <RHKit/NSObject+RHAdd.h>
 
 #import <RHKit/UIColor+RHAdd.h>
@@ -34,6 +36,8 @@
 
 #import "NSData+RHAdd.h"
 #import "NSString+RHAdd.h"
+#import "NSArray+RHAdd.h"
+#import "NSDictionary+RHAdd.h"
 #import "NSObject+RHAdd.h"
 
 #import "UIColor+RHAdd.h"

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "RHKit"
-  s.version      = "1.0.0"
+  s.version      = "1.0.2"
   s.summary      = "iOS常用组件"
   s.homepage     = "https://github.com/guorenhao/RHKit"
   s.license      = "MIT"
