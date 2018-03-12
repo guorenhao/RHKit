@@ -8,8 +8,8 @@
 
 #import "RHImageView.h"
 
-#define ImageViewTag          0
-#define ImageViewContentMode  UIViewContentModeScaleToFill
+#define RHImageViewTag          0
+#define RHImageViewContentMode  UIViewContentModeScaleToFill
 @implementation RHImageView
 
 /**
@@ -30,7 +30,10 @@
         
         self.tag = tag;
         self.contentMode = mode;
-        self.image = image;
+        if (image) {
+            
+            self.image = image;
+        }
         if (target && tapAction) {
             
             self.userInteractionEnabled = YES;
@@ -70,7 +73,7 @@
  */
 + (RHImageView *)imageViewWithFrame:(CGRect)frame image:(UIImage *)image contentMode:(UIViewContentMode)mode target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:mode tag:ImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:mode tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -85,7 +88,22 @@
  */
 + (RHImageView *)imageViewWithFrame:(CGRect)frame image:(UIImage *)image target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:ImageViewContentMode tag:ImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:target tapAction:tapAction];
+    return imageView;
+}
+
+/**
+ 类方法快速创建对象
+ 
+ @param frame     frame
+ @param mode      图片呈现模式
+ @param target    监听对象
+ @param tapAction 事件方法
+ @return          imageView 对象
+ */
++ (RHImageView *)imageViewWithFrame:(CGRect)frame contentMode:(UIViewContentMode)mode target:(id)target tapAction:(SEL)tapAction {
+    
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:nil contentMode:mode tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -98,7 +116,20 @@
  */
 + (RHImageView *)imageViewWithFrame:(CGRect)frame image:(UIImage *)image {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:ImageViewContentMode tag:ImageViewTag target:nil tapAction:NULL];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:nil tapAction:NULL];
+    return imageView;
+}
+
+/**
+ 类方法快速创建对象
+ 
+ @param frame     frame
+ @param mode      图片呈现模式
+ @return          imageView 对象
+ */
++ (RHImageView *)imageViewWithFrame:(CGRect)frame contentMode:(UIViewContentMode)mode {
+    
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:nil contentMode:mode tag:RHImageViewTag target:nil tapAction:NULL];
     return imageView;
 }
 
@@ -131,7 +162,7 @@
  */
 + (RHImageView *)imageViewWithImage:(UIImage *)image contentMode:(UIViewContentMode)mode target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:mode tag:ImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:mode tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -145,7 +176,21 @@
  */
 + (RHImageView *)imageViewWithImage:(UIImage *)image target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:ImageViewContentMode tag:ImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:target tapAction:tapAction];
+    return imageView;
+}
+
+/**
+ 类方法快速创建对象
+ 
+ @param mode      图片呈现模式
+ @param target    监听对象
+ @param tapAction 事件方法
+ @return          imageView 对象
+ */
++ (RHImageView *)imageViewWithContentMode:(UIViewContentMode)mode target:(id)target tapAction:(SEL)tapAction {
+    
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:nil contentMode:mode tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -157,10 +202,21 @@
  */
 + (RHImageView *)imageViewWithImage:(UIImage *)image {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:ImageViewContentMode tag:ImageViewTag target:nil tapAction:NULL];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:nil tapAction:NULL];
     return imageView;
 }
 
+/**
+ 类方法快速创建对象
+ 
+ @param mode      图片呈现模式
+ @return          imageView 对象
+ */
++ (RHImageView *)imageViewWithContentMode:(UIViewContentMode)mode {
+    
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:nil contentMode:mode tag:RHImageViewTag target:nil tapAction:NULL];
+    return imageView;
+}
 
 @end
 
