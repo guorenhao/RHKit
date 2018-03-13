@@ -88,7 +88,7 @@
  
  @return 转换成的NSData
  */
-- (NSData *)converToData {
+- (NSData *)transformToData {
     
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
@@ -448,16 +448,6 @@
 #pragma mark - time and timeStamp
 
 /**
- 通过时间戳差获取时间差
- 
- @param second 时间戳差
- @return 时间差
- */
-//+ (NSString *)stringOfTimeWithSecond:(NSTimeInterval)second;
-
-//+ (NSString *)stringOfTimeWithTimeStampSecond:(NSTimeInterval)timeStamp;
-
-/**
  当前时间
  
  @return 当前时间  yyyy-MM-dd HH:mm:ss
@@ -477,7 +467,14 @@
  @param timeStamp 时间戳
  @return 时间戳对应时间
  */
-//+ (NSString *)stringOfTimeWithTimeStampInt:(NSTimeInterval)timeStamp;
++ (NSString *)timeWithTimeStampInt:(NSTimeInterval)timeStamp {
+    
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString * time = [formatter stringFromDate:date];
+    return time;
+}
 
 /**
  当前时间的时间戳
@@ -489,13 +486,12 @@
     return [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 }
 
-
 /**
  时间戳转换时间
  
  @return 时间 YYYY-mm-dd hh:MM:ss
  */
-- (NSString *)converToTime {
+- (NSString *)transformToTime {
     
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
@@ -509,7 +505,7 @@
  
  @return 时间戳
  */
-- (NSString *)converToTimeStamp {
+- (NSString *)transformToTimeStamp {
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 转换成的NSData
  */
-- (NSData *)converToData;
+- (NSData *)transformToData;
 
 /**
  是否全部是字母
@@ -165,16 +165,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - time and timeStamp
 
 /**
- 通过时间戳差获取时间差
- 
- @param second 时间戳差
- @return 时间差
- */
-//+ (NSString *)stringOfTimeWithSecond:(NSTimeInterval)second;
-
-//+ (NSString *)stringOfTimeWithTimeStampSecond:(NSTimeInterval)timeStamp;
-
-/**
  当前时间
  
  @return 当前时间 yyyy-MM-dd HH:mm:ss
@@ -187,7 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param timeStamp 时间戳
  @return 时间戳对应时间
  */
-//+ (NSString *)stringOfTimeWithTimeStampInt:(NSTimeInterval)timeStamp;
++ (NSString *)timeWithTimeStampInt:(NSTimeInterval)timeStamp;
 
 /**
  当前时间的时间戳
@@ -202,14 +192,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 时间 yyyy-MM-dd HH:mm:ss
  */
-- (NSString *)converToTime;
+- (NSString *)transformToTime;
 
 /**
  时间转换时间戳
  
  @return 时间戳
  */
-- (NSString *)converToTimeStamp;
+- (NSString *)transformToTimeStamp;
 
 #pragma mark - hash
 

@@ -16,7 +16,7 @@
  @param completionHandler 转换完成回调
  @return                  由字典转换成的json字符串
  */
-- (NSString *)converToJSONString:(void (^)(NSError * _Nullable))completionHandler {
+- (NSString *)transformToJSONString:(void (^)(NSError * _Nullable))completionHandler {
     
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];

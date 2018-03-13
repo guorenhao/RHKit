@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return   由model转换成的字典
  */
-- (nullable NSDictionary *)converToDictionary;
+- (nullable NSDictionary *)transformToDictionary;
 
 
 

@@ -35,7 +35,7 @@
 
  @return   由model转换成的字典
  */
-- (NSDictionary *)converToDictionary {
+- (NSDictionary *)transformToDictionary {
     
     NSMutableDictionary *props = [NSMutableDictionary dictionary];
     unsigned int outCount, i;
