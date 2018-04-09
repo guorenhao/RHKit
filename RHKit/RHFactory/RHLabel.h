@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param font          字体字号
  @return              label 对象
  */
-+ (RHLabel *)labelWithtext:(NSString *)text font:(UIFont *)font;
++ (RHLabel *)labelWithText:(NSString *)text font:(UIFont *)font;
 /**
  类方法快速创建对象
  
