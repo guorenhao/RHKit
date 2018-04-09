@@ -9,7 +9,6 @@
 #import "RHImageView.h"
 
 #define RHImageViewTag          0
-#define RHImageViewContentMode  UIViewContentModeScaleToFill
 @implementation RHImageView
 
 /**
@@ -88,7 +87,7 @@
  */
 + (RHImageView *)imageViewWithFrame:(CGRect)frame image:(UIImage *)image target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:UIViewContentModeScaleToFill tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -130,7 +129,7 @@
  */
 + (RHImageView *)imageViewWithFrame:(CGRect)frame image:(UIImage *)image {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:nil tapAction:NULL];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:frame image:image contentMode:UIViewContentModeScaleToFill tag:RHImageViewTag target:nil tapAction:NULL];
     return imageView;
 }
 
@@ -190,7 +189,7 @@
  */
 + (RHImageView *)imageViewWithImage:(UIImage *)image target:(id)target tapAction:(SEL)tapAction {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:target tapAction:tapAction];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:UIViewContentModeScaleToFill tag:RHImageViewTag target:target tapAction:tapAction];
     return imageView;
 }
 
@@ -229,7 +228,7 @@
  */
 + (RHImageView *)imageViewWithImage:(UIImage *)image {
     
-    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:RHImageViewContentMode tag:RHImageViewTag target:nil tapAction:NULL];
+    RHImageView * imageView = [[RHImageView alloc] initWithFrame:CGRectZero image:image contentMode:UIViewContentModeScaleToFill tag:RHImageViewTag target:nil tapAction:NULL];
     return imageView;
 }
 

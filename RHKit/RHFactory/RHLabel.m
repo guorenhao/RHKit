@@ -265,7 +265,7 @@
  @param font          字体字号
  @return              label 对象
  */
-+ (RHLabel *)labelWithtext:(NSString *)text font:(UIFont *)font {
++ (RHLabel *)labelWithText:(NSString *)text font:(UIFont *)font {
     
     RHLabel * label = [[RHLabel alloc] initWithFrame:CGRectZero text:text font:font textColor:LabelTextColor textAlignment:NSTextAlignmentLeft numberOfLines:1];
     return label;
