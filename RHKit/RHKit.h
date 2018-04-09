@@ -20,13 +20,14 @@
 #import <RHKit/UIView+RHAdd.h>
 #import <RHKit/UIImage+RHAdd.h>
 #import <RHKit/UIPickerView+RHAdd.h>
-
+#import <RHKit/UITextView+RHAdd.h>
 #import <RHKit/UIWindow+RHAdd.h>
 
 #import <RHKit/RHView.h>
 #import <RHKit/RHLabel.h>
 #import <RHKit/RHButton.h>
 #import <RHKit/RHImageView.h>
+#import <RHKit/RHTextField.h>
 
 #import <RHKit/RHApplication.h>
 #import <RHKit/RHPath.h>
@@ -44,13 +45,14 @@
 #import "UIView+RHAdd.h"
 #import "UIImage+RHAdd.h"
 #import "UIPickerView+RHAdd.h"
-
+#import "UITextView+RHAdd.h"
 #import "UIWindow+RHAdd.h"
 
 #import "RHView.h"
 #import "RHLabel.h"
 #import "RHButton.h"
 #import "RHImageView.h"
+#import "RHTextField.h"
 
 #import "RHApplication.h"
 #import "RHPath.h"
