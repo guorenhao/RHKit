@@ -448,6 +448,21 @@
 #pragma mark - time and timeStamp
 
 /**
+ 指定日期
+ 
+ @param date   日期
+ @param format 日期格式
+ @return       指定日期
+ */
++ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    NSString * timeStr = [formatter stringFromDate:date];
+    return timeStr;
+}
+
+/**
  当前时间
  
  @return 当前时间  yyyy-MM-dd HH:mm:ss

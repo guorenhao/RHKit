@@ -165,6 +165,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - time and timeStamp
 
 /**
+ 指定日期
+ 
+ @param date   日期
+ @param format 日期格式
+ @return       指定日期
+ */
++ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
+
+/**
  当前时间
  
  @return 当前时间 yyyy-MM-dd HH:mm:ss

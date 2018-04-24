@@ -22,6 +22,23 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  十六进制颜色
  
+ @param hex   十六进制颜色
+ @return      十六进制颜色
+ */
++ (UIColor *)colorWithHex:(NSUInteger)hex;
+
+/**
+ 十六进制颜色
+ 
+ @param hex   十六进制颜色
+ @param alpha 透明度
+ @return      十六进制颜色
+ */
++ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha;
+
+/**
+ 十六进制颜色
+ 
  @param hexString 十六进制颜色字符串
  @return          十六进制颜色
  */

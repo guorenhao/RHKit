@@ -23,6 +23,32 @@
     return [self colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1.0];
 }
 
+/**
+ 十六进制颜色
+ 
+ @param hex   十六进制颜色
+ @return      十六进制颜色
+ */
++ (UIColor *)colorWithHex:(NSUInteger)hex {
+    
+    return [self colorWithHex:hex alpha:1.0];
+}
+
+/**
+ 十六进制颜色
+
+ @param hex   十六进制颜色
+ @param alpha 透明度
+ @return      十六进制颜色
+ */
++ (UIColor *)colorWithHex:(NSUInteger)hex alpha:(CGFloat)alpha {
+    
+    CGFloat red, green, blue;
+    red = ((CGFloat)((hex >> 16) & 0xFF)) / ((CGFloat)0xFF);
+    green = ((CGFloat)((hex >> 8) & 0xFF)) / ((CGFloat)0xFF);
+    blue = ((CGFloat)((hex >> 0) & 0xFF)) / ((CGFloat)0xFF);
+    return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+}
 
 /**
  十六进制颜色
