@@ -41,6 +41,38 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIImage *)imageWithView:(UIView *)view;
 
 /**
+ 高斯模糊图片
+ 
+ @param image 原图
+ @param blur  模糊系数 0~1
+ @return      高斯模糊图片
+ */
++ (UIImage *)gaussianBlurImageWithImage:(UIImage *)image blur:(CGFloat)blur;
+
+/**
+ 文字生成图片 默认居中
+ 
+ @param string    文字
+ @param size      生成的图片尺寸
+ @param font      文字字号
+ @param textColor 文字颜色
+ @return          文字图片
+ */
++ (UIImage *)imageFromStirng:(NSString *)string size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor;
+
+/**
+ 文字生成图片
+ 
+ @param string    文字
+ @param size      生成的图片尺寸
+ @param font      文字字号
+ @param textColor 文字颜色
+ @param isCenter  是否居中
+ @return          文字图片
+ */
++ (UIImage *)imageFromStirng:(NSString *)string size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor isCenter:(BOOL)isCenter;
+
+/**
  拉伸图片到指定尺寸
  
  @param newSize 要拉伸的尺寸

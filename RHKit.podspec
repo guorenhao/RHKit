@@ -8,16 +8,16 @@
 
 Pod::Spec.new do |s|
 
-  s.name         = "RHKit"
-  s.version      = "1.0.8"
-  s.summary      = "iOS常用组件"
-  s.homepage     = "https://github.com/guorenhao/RHKit"
-  s.license      = "MIT"
-  s.authors      = {"Abner_G" => "grh_1990@126.com"}
-  s.platform     = :ios, "8.0"   
-  s.source       = {:git => "https://github.com/guorenhao/RHKit.git", :tag => s.version}
-  s.source_files = "RHKit/**/*.{h,m}"
-  s.frameworks   = "UIKit", "Foundation"
+  s.name         = 'RHKit'
+  s.version      = '1.0.9'
+  s.summary      = 'iOS常用组件'
+  s.homepage     = 'https://github.com/guorenhao/RHKit'
+  s.license      = 'MIT'
+  s.authors      = {'Abner_G' => 'grh_1990@126.com'}
+  s.platform     = :ios, '8.0'   
+  s.source       = {:git => 'https://github.com/guorenhao/RHKit.git', :tag => s.version}
+  s.source_files = 'RHKit/**/*.{h,m}'
+  s.frameworks   = 'UIKit', 'Foundation'
   s.requires_arc = true
 
 end
