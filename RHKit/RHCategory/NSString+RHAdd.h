@@ -111,28 +111,28 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return 是否是中国移动
  */
-- (BOOL)isChinaMobile;
+- (BOOL)isChinaMobile __attribute__((deprecated("此方法弃用，手机号不再做运营商判断")));
 
 /**
  判断是否是中国联通手机号
  
  @return 是否是中国联通
  */
-- (BOOL)isChinaUnicom;
+- (BOOL)isChinaUnicom __attribute__((deprecated("此方法弃用，手机号不再做运营商判断")));
 
 /**
  判断是否是中国电信手机号
  
  @return 是否是中国电信
  */
-- (BOOL)isChinaTelecom;
+- (BOOL)isChinaTelecom __attribute__((deprecated("此方法弃用，手机号不再做运营商判断")));
 
 /**
  判断手机号的类型
  
  @return 手机号类型
  */
-- (NSString *)phoneNumberType;
+- (NSString *)phoneNumberType __attribute__((deprecated("此方法弃用，手机号不再做运营商判断")));
 
 /**
  判断是否是身份证号
@@ -165,13 +165,30 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - time and timeStamp
 
 /**
- 指定日期
+ 获取指定日期
  
- @param date   日期
- @param format 日期格式
+ @param date   时间
+ @param format 时间格式
  @return       指定日期
  */
-+ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
++ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
+
+/**
+ 获取指定日期
+
+ @param timeStamp 时间戳
+ @param format    时间格式
+ @return          指定日期
+ */
++ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format;
+
+/**
+ 根据时间戳获取时间
+ 
+ @param timeStamp 时间戳
+ @return 时间戳对应时间 yyyy-MM-dd HH:mm:ss
+ */
++ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp;
 
 /**
  当前时间
@@ -181,34 +198,50 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)currentTime;
 
 /**
- 根据时间戳获取时间
+ 时间戳转换时间
  
- @param timeStamp 时间戳
- @return 时间戳对应时间
+ @param format 时间格式
+ @return       指定格式时间
  */
-+ (NSString *)timeWithTimeStampInt:(NSTimeInterval)timeStamp;
+- (NSString *)transformToTimeWithFormat:(NSString *)format;
 
 /**
  当前时间的时间戳
  
- @return 当前时间的时间戳
+ @return 当前时间的时间戳 // 10位时间戳
  */
 + (NSString *)currentTimeStamp;
 
 
 /**
- 时间戳转换时间
+ 时间戳转换时间 // 10位时间戳
  
  @return 时间 yyyy-MM-dd HH:mm:ss
  */
 - (NSString *)transformToTime;
 
 /**
- 时间转换时间戳
+ 时间转换时间戳 // 时间格式为 yyyy-MM-dd HH:mm:ss
  
  @return 时间戳
  */
 - (NSString *)transformToTimeStamp;
+
+/**
+ 时间转换时间戳
+ 
+ @param farmat 时间格式
+ @return       时间戳
+ */
+- (NSString *)transformToTimeStampWithFormat:(NSString *)farmat;
+
+/**
+ 指定时间的时间戳
+ 
+ @param date 时间
+ @return     时间戳
+ */
+- (NSString *)timeStampWithDate:(NSDate *)date;
 
 #pragma mark - hash
 

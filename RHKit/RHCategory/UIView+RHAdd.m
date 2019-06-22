@@ -78,6 +78,107 @@ static char rh_indexPathKey;
     [self setAnchorPoint:CGPointMake(0.5f, 0.5f)];
 }
 
+@end
+
+static char rh_colorsKey;
+static char rh_locationsKey;
+static char rh_startPointKey;
+static char rh_endPointKey;
+
+@implementation UIView (Gradient)
+
+- (void)setColors:(NSArray *)colors {
+    
+    objc_setAssociatedObject(self, &rh_colorsKey, colors, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSArray *)colors {
+    
+    return objc_getAssociatedObject(self, &rh_colorsKey);
+}
+
+- (void)setLocations:(NSArray<NSNumber *> *)locations {
+    
+    objc_setAssociatedObject(self, &rh_locationsKey, locations, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSArray<NSNumber *> *)locations {
+    
+    return objc_getAssociatedObject(self, &rh_locationsKey);
+}
+
+- (void)setStartPoint:(CGPoint)startPoint {
+    
+    objc_setAssociatedObject(self, &rh_startPointKey, [NSValue valueWithCGPoint:startPoint], OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (CGPoint)startPoint {
+    
+    return [objc_getAssociatedObject(self, &rh_startPointKey) CGPointValue];
+}
+
+- (void)setEndPoint:(CGPoint)endPoint {
+    
+    objc_setAssociatedObject(self, &rh_endPointKey, [NSValue valueWithCGPoint:endPoint], OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (CGPoint)endPoint {
+    
+    return [objc_getAssociatedObject(self, &rh_endPointKey) CGPointValue];
+}
+
++ (Class)layerClass {
+    
+    return CAGradientLayer.class;
+}
+
+/**
+ 类方法快速创建对象
+ 
+ @param colors     渐变颜色数组
+ @param locations  颜色分割位置
+ @param startPoint 开始点
+ @param endPoint   结束点
+ @return           view对象
+ */
++ (UIView *)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint {
+    
+    UIView * view = [[self alloc] init];
+    [view setGradientColors:colors locations:locations startPoint:startPoint endPoint:endPoint];
+    return view;
+}
+
+/**
+ 设置渐变色
+ 
+ @param colors     渐变颜色数组
+ @param locations  颜色分割位置
+ @param startPoint 开始点
+ @param endPoint   结束点
+ */
+- (void)setGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint {
+    
+    NSMutableArray * colorArr = [NSMutableArray new];
+    for (UIColor * color in colors) {
+        
+        [colorArr addObject:(__bridge id)color.CGColor];
+    }
+    self.colors = [colorArr copy];
+    self.locations = locations;
+    self.startPoint = startPoint;
+    self.endPoint = endPoint;
+    if ([self.layer isKindOfClass:CAGradientLayer.class]) {
+        
+        CAGradientLayer * layer = (CAGradientLayer *)self.layer;
+        layer.colors = self.colors;
+        // 设置渐变方向(0~1)
+        layer.startPoint = self.startPoint;
+        layer.endPoint = self.endPoint;
+        // 设置渐变色的起始位置和终止位置(颜色的分割点)
+        layer.locations = self.locations;
+        layer.borderWidth = 0.0;
+    }
+}
 
 @end
 

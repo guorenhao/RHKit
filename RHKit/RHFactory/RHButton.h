@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
+- (instancetype)initWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitle:(nullable NSString *)selectTitle selectTitleColor:(nullable UIColor *)selectTitleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  对象方法创建对象
  
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitle:(nullable NSString *)selectTitle selectTitleColor:(nullable UIColor *)selectTitleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitle:(nullable NSString *)selectTitle selectTitleColor:(nullable UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title selectTitle:(nullable NSString *)selectTitle font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title selectTitle:(nullable NSString *)selectTitle target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitleColor:(nullable UIColor *)selectTitleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitleColor:(nullable UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -149,7 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(nullable NSString *)title target:(nullable id)target action:(SEL)action;
 
 #pragma mark - 文字 no frame
 
@@ -165,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitle:(nullable NSString *)selectTitle selectTitleColor:(nullable UIColor *)selectTitleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -177,7 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitle:(nullable NSString *)selectTitle selectTitleColor:(nullable UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title selectTitle:(nullable NSString *)selectTitle font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -198,7 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title selectTitle:(nullable NSString *)selectTitle target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -210,7 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitleColor:(nullable UIColor *)selectTitleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -221,7 +221,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor selectTitleColor:(nullable UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -232,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor font:(nullable UIFont *)font target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -242,7 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title titleColor:(nullable UIColor *)titleColor target:(nullable id)target action:(SEL)action;
 /**
  类方法快速创建对象
  
@@ -251,7 +251,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title target:(nullable id)target action:(SEL)action;
++ (RHButton *)buttonWithTitle:(nullable NSString *)title target:(nullable id)target action:(SEL)action;
 
 
 #pragma mark - 图片

@@ -19,7 +19,7 @@
 - (NSString *)transformToJSONString:(void (^)(NSError * _Nullable))completionHandler {
     
     NSError * error = nil;
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:&error];
     NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     if (completionHandler) {
         

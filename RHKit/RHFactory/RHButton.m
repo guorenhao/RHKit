@@ -25,17 +25,35 @@
  @param action           事件方法
  @return                 button 对象
  */
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.titleLabel.font = font;
-        [self setTitle:title forState:UIControlStateNormal];
-        [self setTitleColor:titleColor forState:UIControlStateNormal];
-        [self setTitle:selectTitle forState:UIControlStateSelected];
-        [self setTitleColor:selectTitleColor forState:UIControlStateSelected];
-        [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        if (font) {
+            
+            self.titleLabel.font = font;
+        }
+        if (title) {
+            
+            [self setTitle:title forState:UIControlStateNormal];
+        }
+        if (titleColor) {
+            
+            [self setTitleColor:titleColor forState:UIControlStateNormal];
+        }
+        if (selectTitle) {
+            
+            [self setTitle:selectTitle forState:UIControlStateSelected];
+        }
+        if (selectTitleColor) {
+            
+            [self setTitleColor:selectTitleColor forState:UIControlStateSelected];
+        }
+        if (target && action) {
+            
+            [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        }
     }
     return self;
 }
@@ -52,7 +70,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(nullable id)target action:(SEL)action {
+- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(id)target action:(SEL)action {
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -73,7 +91,10 @@
             
             [self setBackgroundImage:bgSelectImage forState:UIControlStateSelected];
         }
-        [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        if (target && action) {
+            
+            [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        }
     }
     return self;
 }
@@ -93,7 +114,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:selectTitle selectTitleColor:selectTitleColor font:font target:target action:action];
     return button;
@@ -110,7 +131,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:selectTitle selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
     return button;
@@ -126,7 +147,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:ButtonTitleColor selectTitle:selectTitle selectTitleColor:ButtonTitleColor font:font target:target action:action];
     return button;
@@ -141,7 +162,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title selectTitle:(NSString *)selectTitle target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:ButtonTitleColor selectTitle:selectTitle selectTitleColor:ButtonTitleColor font:ButtonFont target:target action:action];
     return button;
@@ -158,9 +179,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:title selectTitleColor:selectTitleColor font:font target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:nil selectTitleColor:selectTitleColor font:font target:target action:action];
     return button;
 }
 /**
@@ -174,9 +195,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:title selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:nil selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
     return button;
 }
 /**
@@ -190,9 +211,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:title selectTitleColor:titleColor font:font target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:nil selectTitleColor:nil font:font target:target action:action];
     return button;
 }
 /**
@@ -205,9 +226,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title titleColor:(UIColor *)titleColor target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:title selectTitleColor:titleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:titleColor selectTitle:nil selectTitleColor:nil font:ButtonFont target:target action:action];
     return button;
 }
 /**
@@ -219,9 +240,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:ButtonTitleColor selectTitle:title selectTitleColor:ButtonTitleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame title:title titleColor:ButtonTitleColor selectTitle:nil selectTitleColor:ButtonTitleColor font:ButtonFont target:target action:action];
     return button;
 }
 
@@ -239,7 +260,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:selectTitle selectTitleColor:selectTitleColor font:font target:target action:action];
     return button;
@@ -255,7 +276,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitle:(NSString *)selectTitle selectTitleColor:(UIColor *)selectTitleColor target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:selectTitle selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
     return button;
@@ -270,7 +291,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle font:(UIFont *)font target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:ButtonTitleColor selectTitle:selectTitle selectTitleColor:ButtonTitleColor font:font target:target action:action];
     return button;
@@ -284,7 +305,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:ButtonTitleColor selectTitle:selectTitle selectTitleColor:ButtonTitleColor font:ButtonFont target:target action:action];
     return button;
@@ -300,9 +321,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:title selectTitleColor:selectTitleColor font:font target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:nil selectTitleColor:selectTitleColor font:font target:target action:action];
     return button;
 }
 /**
@@ -315,9 +336,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor selectTitleColor:(UIColor *)selectTitleColor target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:title selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:nil selectTitleColor:selectTitleColor font:ButtonFont target:target action:action];
     return button;
 }
 /**
@@ -330,9 +351,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor font:(UIFont *)font target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:title selectTitleColor:titleColor font:font target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:nil selectTitleColor:nil font:font target:target action:action];
     return button;
 }
 /**
@@ -344,9 +365,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:title selectTitleColor:titleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:titleColor selectTitle:nil selectTitleColor:nil font:ButtonFont target:target action:action];
     return button;
 }
 /**
@@ -357,9 +378,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithTitle:(NSString *)title target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithTitle:(NSString *)title target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:ButtonTitleColor selectTitle:title selectTitleColor:ButtonTitleColor font:ButtonFont target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero title:title titleColor:ButtonTitleColor selectTitle:nil selectTitleColor:nil font:ButtonFont target:target action:action];
     return button;
 }
 
@@ -378,7 +399,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame image:image selectImage:selectImage bgImage:bgImage bgSelectImage:bgSelectImage target:target action:action];
     return button;
@@ -393,7 +414,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image selectImage:(UIImage *)selectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame image:image selectImage:selectImage bgImage:nil bgSelectImage:nil target:target action:action];
     return button;
@@ -407,9 +428,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame image:(UIImage *)image target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame image:image selectImage:image bgImage:nil bgSelectImage:nil target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame image:image selectImage:nil bgImage:nil bgSelectImage:nil target:target action:action];
     return button;
 }
 /**
@@ -422,7 +443,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:frame image:nil selectImage:nil bgImage:bgImage bgSelectImage:bgSelectImage target:target action:action];
     return button;
@@ -436,9 +457,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithFrame:(CGRect)frame bgImage:(UIImage *)bgImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithFrame:(CGRect)frame bgImage:(UIImage *)bgImage target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:frame image:nil selectImage:nil bgImage:bgImage bgSelectImage:bgImage target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:frame image:nil selectImage:nil bgImage:bgImage bgSelectImage:nil target:target action:action];
     return button;
 }
 
@@ -455,7 +476,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithImage:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithImage:(UIImage *)image selectImage:(UIImage *)selectImage bgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:image selectImage:selectImage bgImage:bgImage bgSelectImage:bgSelectImage target:target action:action];
     return button;
@@ -469,7 +490,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithImage:(UIImage *)image selectImage:(UIImage *)selectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithImage:(UIImage *)image selectImage:(UIImage *)selectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:image selectImage:selectImage bgImage:nil bgSelectImage:nil target:target action:action];
     return button;
@@ -482,9 +503,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithImage:(UIImage *)image target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithImage:(UIImage *)image target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:image selectImage:image bgImage:nil bgSelectImage:nil target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:image selectImage:nil bgImage:nil bgSelectImage:nil target:target action:action];
     return button;
 }
 /**
@@ -496,7 +517,7 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithBgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithBgImage:(UIImage *)bgImage bgSelectImage:(UIImage *)bgSelectImage target:(id)target action:(SEL)action {
     
     RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:nil selectImage:nil bgImage:bgImage bgSelectImage:bgSelectImage target:target action:action];
     return button;
@@ -509,9 +530,9 @@
  @param action           事件方法
  @return                 button 对象
  */
-+ (RHButton *)buttonWithBgImage:(UIImage *)bgImage target:(nullable id)target action:(SEL)action {
++ (RHButton *)buttonWithBgImage:(UIImage *)bgImage target:(id)target action:(SEL)action {
     
-    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:nil selectImage:nil bgImage:bgImage bgSelectImage:bgImage target:target action:action];
+    RHButton * button = [[RHButton alloc] initWithFrame:CGRectZero image:nil selectImage:nil bgImage:bgImage bgSelectImage:nil target:target action:action];
     return button;
 }
 

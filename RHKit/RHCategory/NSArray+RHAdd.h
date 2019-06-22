@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param completionHandler 转换完成回调
  @return                  由数组转换成的json字符串
  */
-- (nullable NSString *)transformToJSONString:(void(^)(NSError * _Nullable error))completionHandler;
+- (nullable NSString *)transformToJSONString:(nullable void(^)(NSError * _Nullable error))completionHandler;
 
 @end
 

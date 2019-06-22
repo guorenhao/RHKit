@@ -45,6 +45,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface UIView (Gradient)
+
+/* 渐变颜色数组 数组元素：CGColorRef */
+@property (nonatomic, copy) NSArray * colors;
+/* 颜色分割位置 */
+@property (nonatomic, copy) NSArray<NSNumber *> * locations;
+/* 渐变色开始点 */
+@property (nonatomic, assign) CGPoint startPoint;
+/* 渐变色结束点 */
+@property (nonatomic, assign) CGPoint endPoint;
+
+/**
+ 类方法快速创建对象
+ 
+ @param colors     渐变颜色数组
+ @param locations  颜色分割位置
+ @param startPoint 开始点
+ @param endPoint   结束点
+ @return           view对象
+ */
++ (nullable UIView *)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint;
+
+/**
+ 设置渐变色
+ 
+ @param colors     渐变颜色数组
+ @param locations  颜色分割位置
+ @param startPoint 开始点
+ @param endPoint   结束点
+ */
+- (void)setGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint;
+
+@end
+
 @interface UIView (RHFrame)
 
 /* 最小x值 frame.origin.x */

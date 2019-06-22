@@ -173,9 +173,9 @@
     }
     /**
      * 手机号码:
-     * 13[0-9], 14[5,7], 15[0, 1, 2, 3, 5, 6, 7, 8, 9], 17[6, 7, 8], 18[0-9], 170[0-9]
+     * 13[0-9], 14[5-8], 15[0-3, 5-9], 16[6], 17[0, 4, 6, 7, 8], 18[0-9], 19[8-9]
      */
-    NSString * regex = @"^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[0678])\\d{8}$";
+    NSString * regex = @"^1(3[0-9]|4[5-8]|5[0-35-9]|6[6]|7[04678]|8[0-9]|9[89])\\d{8}$";
     NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [predicate evaluateWithObject:self];
 }
@@ -448,18 +448,44 @@
 #pragma mark - time and timeStamp
 
 /**
- 指定日期
+ 获取指定日期
  
- @param date   日期
- @param format 日期格式
+ @param date   时间
+ @param format 时间格式
  @return       指定日期
  */
-+ (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format {
++ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format {
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:format];
-    NSString * timeStr = [formatter stringFromDate:date];
-    return timeStr;
+    return [formatter stringFromDate:date];
+}
+
+/**
+ 获取指定日期
+ 
+ @param timeStamp 时间戳
+ @param format    时间格式
+ @return          指定日期
+ */
++ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
+}
+
+/**
+ 根据时间戳获取时间
+ 
+ @param timeStamp 时间戳
+ @return 时间戳对应时间 yyyy-MM-dd HH:mm:ss
+ */
++ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
 }
 
 /**
@@ -474,21 +500,6 @@
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString * currentTime = [formatter stringFromDate:currentDate];
     return currentTime;
-}
-
-/**
- 根据时间戳获取时间
- 
- @param timeStamp 时间戳
- @return 时间戳对应时间
- */
-+ (NSString *)timeWithTimeStampInt:(NSTimeInterval)timeStamp {
-    
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString * time = [formatter stringFromDate:date];
-    return time;
 }
 
 /**
@@ -511,8 +522,22 @@
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString * time = [formatter stringFromDate:date];
-    return time;
+    return [formatter stringFromDate:date];
+}
+
+
+/**
+ 时间戳转换时间
+
+ @param format 时间格式
+ @return       指定格式时间
+ */
+- (NSString *)transformToTimeWithFormat:(NSString *)format {
+    
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:date];
 }
 
 /**
@@ -524,11 +549,35 @@
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSTimeZone * timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
-    [formatter setTimeZone:timeZone];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
     NSDate * date = [formatter dateFromString:self];
-    NSString * timeStamp = [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
-    return timeStamp;
+    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
+}
+
+/**
+ 时间转换时间戳
+
+ @param farmat 时间格式
+ @return       时间戳
+ */
+- (NSString *)transformToTimeStampWithFormat:(NSString *)farmat {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:farmat];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    NSDate * date = [formatter dateFromString:self];
+    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
+}
+
+/**
+ 指定时间的时间戳
+
+ @param date 时间
+ @return     时间戳
+ */
+- (NSString *)timeStampWithDate:(NSDate *)date {
+    
+    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
 }
 
 #pragma mark - hash
