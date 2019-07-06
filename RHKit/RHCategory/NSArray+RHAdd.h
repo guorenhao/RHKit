@@ -20,6 +20,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSString *)transformToJSONString:(nullable void(^)(NSError * _Nullable error))completionHandler;
 
+
+#pragma mark - safe assess
+
+/**
+ 防止数组调用该方法崩溃
+
+ @param key key
+ @return    nil
+ */
+- (nullable id)objectForKey:(NSString *)key;
+
+/**
+ 防止数组调用该方法崩溃
+ 
+ @param key key
+ @return    nil
+ */
+- (nullable id)objectForKeyedSubscript:(id)key;
+
 @end
 
 NS_ASSUME_NONNULL_END

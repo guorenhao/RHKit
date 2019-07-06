@@ -9,21 +9,30 @@
 #import "UIView+RHAdd.h"
 #import <objc/runtime.h>
 
-static char rh_indexPathKey;
+static char rh_kIndexPath;
 
 @implementation UIView (RHAdd)
 
 /* 位置标记 */
 - (void)setIndexPath:(NSIndexPath *)indexPath {
     
-    objc_setAssociatedObject(self, &rh_indexPathKey, indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &rh_kIndexPath, indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSIndexPath *)indexPath {
     
-    return objc_getAssociatedObject(self, &rh_indexPathKey);
+    return objc_getAssociatedObject(self, &rh_kIndexPath);
 }
 
+- (CGFloat)safeAreaBottom {
+    
+    CGFloat safeAreaBottom = 0;
+    if (@available(iOS 11.0, *)) {
+        
+        safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+    }
+    return safeAreaBottom;
+}
 
 /**
  移除所有子视图
@@ -80,51 +89,51 @@ static char rh_indexPathKey;
 
 @end
 
-static char rh_colorsKey;
-static char rh_locationsKey;
-static char rh_startPointKey;
-static char rh_endPointKey;
+static char rh_kColors;
+static char rh_kLocations;
+static char rh_kStartPoint;
+static char rh_kEndPoint;
 
 @implementation UIView (Gradient)
 
 - (void)setColors:(NSArray *)colors {
     
-    objc_setAssociatedObject(self, &rh_colorsKey, colors, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &rh_kColors, colors, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSArray *)colors {
     
-    return objc_getAssociatedObject(self, &rh_colorsKey);
+    return objc_getAssociatedObject(self, &rh_kColors);
 }
 
 - (void)setLocations:(NSArray<NSNumber *> *)locations {
     
-    objc_setAssociatedObject(self, &rh_locationsKey, locations, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, &rh_kLocations, locations, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (NSArray<NSNumber *> *)locations {
     
-    return objc_getAssociatedObject(self, &rh_locationsKey);
+    return objc_getAssociatedObject(self, &rh_kLocations);
 }
 
 - (void)setStartPoint:(CGPoint)startPoint {
     
-    objc_setAssociatedObject(self, &rh_startPointKey, [NSValue valueWithCGPoint:startPoint], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &rh_kStartPoint, [NSValue valueWithCGPoint:startPoint], OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (CGPoint)startPoint {
     
-    return [objc_getAssociatedObject(self, &rh_startPointKey) CGPointValue];
+    return [objc_getAssociatedObject(self, &rh_kStartPoint) CGPointValue];
 }
 
 - (void)setEndPoint:(CGPoint)endPoint {
     
-    objc_setAssociatedObject(self, &rh_endPointKey, [NSValue valueWithCGPoint:endPoint], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &rh_kEndPoint, [NSValue valueWithCGPoint:endPoint], OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (CGPoint)endPoint {
     
-    return [objc_getAssociatedObject(self, &rh_endPointKey) CGPointValue];
+    return [objc_getAssociatedObject(self, &rh_kEndPoint) CGPointValue];
 }
 
 + (Class)layerClass {

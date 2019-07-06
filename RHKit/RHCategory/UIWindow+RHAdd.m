@@ -24,6 +24,9 @@
         if (topViewController.presentedViewController) {
             
             topViewController = topViewController.presentedViewController;
+        } else if ([topViewController isKindOfClass:[UISplitViewController class]] && ((UISplitViewController *)topViewController).viewControllers.count > 0) {
+            
+            topViewController = ((UISplitViewController *)topViewController).viewControllers.lastObject;
         } else if ([topViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)topViewController topViewController]) {
             
             topViewController = [(UINavigationController *)topViewController topViewController];

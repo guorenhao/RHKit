@@ -28,6 +28,30 @@
     return jsonString;
 }
 
+#pragma mark - safe assess
 
+/**
+ 防止数组调用该方法崩溃
+ 
+ @param key key
+ @return    nil
+ */
+- (id)objectForKey:(NSString *)key {
+    
+    NSLog(@"-[__NSCFArray objectForKey:]: unrecognized selector sent to instance");
+    return nil;
+}
+
+/**
+ 防止数组调用该方法崩溃
+ 
+ @param key key
+ @return    nil
+ */
+- (id)objectForKeyedSubscript:(id)key {
+    
+    NSLog(@"-[__NSCFArray objectForKeyedSubscript:]: unrecognized selector sent to instance");
+    return nil;
+}
 
 @end

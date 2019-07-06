@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /* 位置标记 */
 @property (nonatomic, strong) NSIndexPath * indexPath;
-
+/* 底部安全区域 */
+@property (nonatomic, assign, readonly) CGFloat safeAreaBottom;
 
 /**
  移除所有子视图

@@ -71,6 +71,41 @@
 }
 
 /**
+ 通过view生成图片
+ 
+ @param view   要生成图片的view
+ @param opaque 是否不透明 NO-白底 YES-黑底
+ @return       view图片
+ */
++ (UIImage *)imageWithView:(UIView *)view opaque:(BOOL)opaque {
+    
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, opaque, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+/**
+ 通过view生成图片
+
+ @param view   要生成图片的view
+ @param opaque 是否不透明 NO-白底 YES-黑底
+ @param scale  屏幕密度 [UIScreen mainScreen].scale
+ @return       view图片
+ */
++ (UIImage *)imageWithView:(UIView *)view opaque:(BOOL)opaque scale:(CGFloat)scale {
+    
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, opaque, scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+/**
  高斯模糊图片
 
  @param image 原图
