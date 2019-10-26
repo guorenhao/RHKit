@@ -162,6 +162,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)containsEmoji;
 
+/**
+判断字符串中是否含有中文
+
+@return 是否含有中文
+*/
+- (BOOL)containsChinese;
+
 #pragma mark - time and timeStamp
 
 /**

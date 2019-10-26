@@ -175,7 +175,7 @@
      * 手机号码:
      * 13[0-9], 14[5-8], 15[0-3, 5-9], 16[6], 17[0, 4, 6, 7, 8], 18[0-9], 19[8-9]
      */
-    NSString * regex = @"^1(3[0-9]|4[5-8]|5[0-35-9]|6[6]|7[04678]|8[0-9]|9[89])\\d{8}$";
+    NSString * regex = @"^1(3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])\\d{8}$";
     NSPredicate * predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     return [predicate evaluateWithObject:self];
 }
@@ -443,6 +443,28 @@
         }
     }];
     return returnValue;
+}
+
+/**
+判断字符串中是否含有中文
+
+@return 是否含有中文
+*/
+- (BOOL)containsChinese {
+    
+    BOOL result = NO;
+    for (int i = 0; i < self.length; i++) {
+        
+        NSRange range = NSMakeRange(i, 1);
+        NSString * subStr = [self substringWithRange:range];
+        const char * cSubStr = [subStr UTF8String];
+        if (strlen(cSubStr) >= 3) {
+            
+            result = YES;
+            break;
+        }
+    }
+    return result;
 }
 
 #pragma mark - time and timeStamp
