@@ -591,16 +591,98 @@
     return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
 }
 
-/**
- 指定时间的时间戳
+/// 获取指定日期
+/// @param date   日期
+/// @param format 日期格式
++ (NSString *)dateStringWithDate:(NSDate *)date format:(NSString *)format {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:date];
+}
 
- @param date 时间
- @return     时间戳
- */
-- (NSString *)timeStampWithDate:(NSDate *)date {
+/// 获取指定日期
+/// @param timeStamp 时间戳
+/// @param format    日期格式
++ (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
+}
+
+/// 获取指定日期 对应日期格式 yyyy-MM-dd HH:mm:ss
+/// @param timeStamp 时间戳
++ (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
+}
+
+/// 当前日期 yyyy-MM-dd HH:mm:ss
++ (NSString *)currentDateString {
+    
+    NSDate * currentDate = [NSDate date];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString * currentTime = [formatter stringFromDate:currentDate];
+    return currentTime;
+}
+
+/// 指定日期的时间戳
+/// @param date 日期
++ (NSString *)timeStampStringWithDate:(NSDate *)date {
     
     return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
 }
+
+/// 当前日期的时间戳 10位精确到秒
++ (NSString *)currentTimeStampString {
+    
+    return [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+}
+
+/// 时间戳转换日期 10位 --> yyyy-MM-dd HH:mm:ss
+- (NSString *)dateString {
+    
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [formatter stringFromDate:date];
+}
+
+/// 时间戳转换日期 10位 -->
+/// @param format 日期格式
+- (NSString *)dateStringWithFormat:(NSString *)format {
+    
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:date];
+}
+
+/// 日期转换时间戳 yyyy-MM-dd HH:mm:ss --> 10位精确到秒
+- (NSString *)timeStampString {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    NSDate * date = [formatter dateFromString:self];
+    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
+}
+
+/// 日期转换时间戳  --> 10位精确到秒
+/// @param farmat 日期格式
+- (NSString *)timeStampStringWithFormat:(NSString *)farmat {
+    
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:farmat];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    NSDate * date = [formatter dateFromString:self];
+    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
+}
+
 
 #pragma mark - hash
 
@@ -748,7 +830,11 @@
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-
+/// 解json生成对象
+- (id)jsonObject {
+    
+    return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+}
 
 
 

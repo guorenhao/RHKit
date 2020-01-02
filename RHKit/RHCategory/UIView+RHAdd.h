@@ -66,7 +66,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param endPoint   结束点
  @return           view对象
  */
-+ (nullable UIView *)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint;
++ (instancetype)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint;
+
+/// 类方法快速创建对象
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
++ (instancetype)viewWithShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius;
 
 /**
  设置渐变色
@@ -77,6 +84,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param endPoint   结束点
  */
 - (void)setGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint;
+
+/// 设置阴影（背景不能是透明色，否则将不显示阴影）
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
+- (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius;
 
 @end
 

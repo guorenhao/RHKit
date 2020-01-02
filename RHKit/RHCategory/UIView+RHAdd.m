@@ -150,10 +150,22 @@ static char rh_kEndPoint;
  @param endPoint   结束点
  @return           view对象
  */
-+ (UIView *)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint {
++ (instancetype)viewWithGradientColors:(NSArray<UIColor *> *)colors locations:(NSArray<NSNumber *> *)locations startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint {
     
     UIView * view = [[self alloc] init];
     [view setGradientColors:colors locations:locations startPoint:startPoint endPoint:endPoint];
+    return view;
+}
+
+/// 类方法快速创建对象
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
++ (instancetype)viewWithShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius {
+    
+    UIView * view = [[self alloc] init];
+    [view setShadowColor:shadowColor shadowOffset:shadowOffset shadowOpacity:shadowOpacity shadowRadius:shadowRadius];
     return view;
 }
 
@@ -187,6 +199,19 @@ static char rh_kEndPoint;
         layer.locations = self.locations;
         layer.borderWidth = 0.0;
     }
+}
+
+/// 设置阴影
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
+- (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius {
+    
+    self.layer.shadowColor = shadowColor.CGColor;
+    self.layer.shadowOffset = shadowOffset;
+    self.layer.shadowOpacity = shadowOpacity;
+    self.layer.shadowRadius = shadowRadius;
 }
 
 @end

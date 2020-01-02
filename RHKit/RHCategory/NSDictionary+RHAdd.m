@@ -28,4 +28,10 @@
     return jsonString;
 }
 
+/// 转换成json字符串
+- (NSString *)jsonString {
+    
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:nil] encoding:NSUTF8StringEncoding];
+}
+
 @end

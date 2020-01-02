@@ -206,12 +206,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString;
 
-/**
- 解json生成NSDictionary或者NSArray
- */
-- (nullable id)jsonValueDecoded;
-
-
+/// 解json生成对象
+- (nullable id)jsonObject;
 
 
 @end

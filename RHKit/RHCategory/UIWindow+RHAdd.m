@@ -17,8 +17,7 @@
  */
 + (UIViewController *)currentViewController {
     
-    UIWindow * window = [[UIApplication sharedApplication].delegate window];
-    UIViewController *topViewController = [window rootViewController];
+    UIViewController * topViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     while (true) {
         
         if (topViewController.presentedViewController) {
@@ -40,6 +39,27 @@
         }
     }
     return topViewController;
+}
+
+/// 获取当前导航vc
++ (UINavigationController *)currentNavigationController {
+    
+    UIViewController * rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([rootVC isKindOfClass:[UITabBarController class]]) {
+        
+        UIViewController * selectVC = [(UITabBarController *)rootVC selectedViewController];
+        if ([selectVC isKindOfClass:[UINavigationController class]]) {
+            
+            return (UINavigationController *)selectVC;
+        } else {
+            
+            return [[UINavigationController alloc] initWithRootViewController:selectVC];
+        }
+    } else if ([rootVC isKindOfClass:[UINavigationController class]]) {
+           
+        return (UINavigationController *)rootVC;
+    }
+    return [[UINavigationController alloc] initWithRootViewController:rootVC];
 }
 
 @end

@@ -626,20 +626,10 @@ static const short base64DecodingTable[256] = {
     return data;
 }
 
-/**
- 解json生成NSDictionary或者NSArray
- */
-- (id)jsonValueDecoded {
+/// 解json生成对象
+- (id)jsonObject {
     
-    NSError * error = nil;
-    id value = [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:&error];
-    if (error) {
-        
-        NSLog(@"jsonValueDecoded error:%@", error);
-    }
-    return value;
+    return [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:nil];
 }
-
-
 
 @end

@@ -10,21 +10,18 @@
 
 @implementation NSDate (RHAdd)
 
-/**
- 通过时间字符串获取时间
- 
- @param time   时间字符串
- @param format 时间格式
- @return       时间
- */
-+ (NSDate *)dateWithTime:(NSString *)time format:(NSString *)format {
+/// 通过日期字符串日期
+/// @param dateString 日期字符串
+/// @param format     日期格式
++ (NSDate *)dateWithDateString:(NSString *)dateString format:(NSString *)format {
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setLocale:[NSLocale currentLocale]];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
     [formatter setDateFormat:format];
-    return [formatter dateFromString:time];
+    return [formatter dateFromString:dateString];
 }
+
 
 
 @end

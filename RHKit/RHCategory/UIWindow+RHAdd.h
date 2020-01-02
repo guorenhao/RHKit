@@ -16,4 +16,8 @@
  @return 当前vc
  */
 + (UIViewController *)currentViewController;
+
+/// 获取当前导航vc
++ (UINavigationController *)currentNavigationController;
+
 @end

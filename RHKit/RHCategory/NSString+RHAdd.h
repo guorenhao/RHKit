@@ -242,13 +242,43 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)transformToTimeStampWithFormat:(NSString *)farmat;
 
-/**
- 指定时间的时间戳
- 
- @param date 时间
- @return     时间戳
- */
-- (NSString *)timeStampWithDate:(NSDate *)date;
+/// 获取指定日期
+/// @param date   日期
+/// @param format 日期格式
++ (NSString *)dateStringWithDate:(NSDate *)date format:(NSString *)format;
+
+/// 获取指定日期
+/// @param timeStamp 时间戳
+/// @param format    日期格式
++ (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format;
+
+/// 获取指定日期 对应日期格式 yyyy-MM-dd HH:mm:ss
+/// @param timeStamp 时间戳
++ (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp;
+
+/// 当前日期 yyyy-MM-dd HH:mm:ss
++ (NSString *)currentDateString;
+
+/// 指定日期的时间戳
+/// @param date 日期
++ (NSString *)timeStampStringWithDate:(NSDate *)date;
+
+/// 当前日期的时间戳 --> 10位精确到秒
++ (NSString *)currentTimeStampString;
+
+/// 时间戳转换日期 yyyy-MM-dd HH:mm:ss
+- (NSString *)dateString;
+
+/// 时间戳转换日期
+/// @param format 日期格式
+- (NSString *)dateStringWithFormat:(NSString *)format;
+
+/// 日期转换时间戳 yyyy-MM-dd HH:mm:ss --> 10位精确到秒
+- (NSString *)timeStampString;
+
+/// 日期转换时间戳  --> 10位精确到秒
+/// @param farmat 日期格式
+- (NSString *)timeStampStringWithFormat:(NSString *)farmat;
 
 #pragma mark - hash
 
@@ -342,7 +372,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString;
 
-
+/// 解json生成对象
+- (nullable id)jsonObject;
 
 @end
 

@@ -142,7 +142,7 @@
     label.numberOfLines = 0;
     [label sizeToFit];
     CGFloat height = label.frame.size.height;
-    return height;
+    return ceil(height);
 }
 
 /**
@@ -179,7 +179,7 @@
     label.numberOfLines = 0;
     [label sizeToFit];
     CGFloat height = label.frame.size.height;
-    return height;
+    return ceil(height);
 }
 
 /**
@@ -200,7 +200,7 @@
     label.numberOfLines = 0;
     [label sizeToFit];
     CGFloat height = label.frame.size.height;
-    return height;
+    return ceil(height);
 }
 
 /**
@@ -221,7 +221,7 @@
     label.font = font;
     [label sizeToFit];
     CGFloat width = label.frame.size.width;
-    return width;
+    return ceil(width);
 }
 
 /**
@@ -240,7 +240,7 @@
     label.attributedText = attributedText;
     [label sizeToFit];
     CGFloat width = label.frame.size.width;
-    return width;
+    return ceil(width);
 }
 
 #pragma mark - 系统相关

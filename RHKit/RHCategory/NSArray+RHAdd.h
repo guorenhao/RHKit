@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSString *)transformToJSONString:(nullable void(^)(NSError * _Nullable error))completionHandler;
 
+/// 转换成json字符串
+- (nullable NSString *)jsonString;
 
 #pragma mark - safe assess
 

@@ -68,29 +68,32 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImage *)gaussianBlurImageWithImage:(UIImage *)image blur:(CGFloat)blur;
 
-/**
- 文字生成图片 默认居中
- 
- @param string    文字
- @param size      生成的图片尺寸
- @param font      文字字号
- @param textColor 文字颜色
- @return          文字图片
- */
-+ (UIImage *)imageFromStirng:(NSString *)string size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor;
+/// 文字生成图片 默认居中
+/// @param text      文字
+/// @param size      生成的图片尺寸
+/// @param font      文字字号
+/// @param textColor 文字颜色
++ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor;
 
-/**
- 文字生成图片
- 
- @param string    文字
- @param size      生成的图片尺寸
- @param font      文字字号
- @param textColor 文字颜色
- @param isCenter  是否居中
- @return          文字图片
- */
-+ (UIImage *)imageFromStirng:(NSString *)string size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor isCenter:(BOOL)isCenter;
+/// 文字生成图片
+/// @param text      文字
+/// @param size      生成的图片尺寸
+/// @param font      文字字号
+/// @param textColor 文字颜色
+/// @param isCenter  是否居中
++ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor isCenter:(BOOL)isCenter;
 
+/// 生成二维码图片
+/// @param content 二维码内容
+/// @param size    生成图片尺寸
++ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size;
+
+/// 生成二维码图片
+/// @param content      二维码内容
+/// @param size         生成图片尺寸
+/// @param centerImage  中间插入小图
+/// @param centerRadius 中间插入小图圆角
++ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size centerImage:(nullable UIImage *)centerImage centerRadius:(CGFloat)centerRadius;
 /**
  拉伸图片到指定尺寸
  
