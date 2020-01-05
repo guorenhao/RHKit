@@ -177,23 +177,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - encode and decode
 
 /**
- UTF8加密生成NSString
- */
-- (nullable NSString *)utf8String;
-
-/**
- 十六进制加密生成NSString 字母大写
- */
-- (nullable NSString *)hexString;
-
-/**
- 十六进制转换成NSData
- 
- @param hexString   十六进制字符串
- */
-+ (nullable NSData *)dataWithHexString:(NSString *)hexString;
-
-/**
  base64加密生成NSString
  */
 - (nullable NSString *)base64EncodedString;
@@ -206,8 +189,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSData *)dataWithBase64EncodedString:(NSString *)base64EncodedString;
 
+#pragma mark - transform
+
 /// 解json生成对象
 - (nullable id)jsonObject;
+
+/// 转换成utf8字符串
+- (nullable NSString *)utf8String;
+
+/// 转换成十六进制字符串 字母大写
+- (nullable NSString *)hexString;
+
+/// 十六进制转换成NSData
+/// @param hexString 十六进制字符串
++ (nullable NSData *)dataWithHexString:(NSString *)hexString;
 
 
 @end

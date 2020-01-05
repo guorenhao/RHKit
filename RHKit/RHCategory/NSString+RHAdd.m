@@ -8,6 +8,7 @@
 
 #import "NSString+RHAdd.h"
 #import "NSData+RHAdd.h"
+#import "NSAttributedString+RHAdd.h"
 
 @implementation NSString (RHAdd)
 
@@ -31,14 +32,17 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];;
 }
 
-/**
- 清除所有空格
- 
- @return 清除空格之后的字符串
- */
+/// 清除所有空格
 - (NSString *)clearAllSpace {
     
-    return [self replaceString:@" " withNewString:@""];
+    return [self replaceString:@" " newString:@""];
+}
+
+/// 清除所有空格和回车
+- (NSString *)clearAllSpaceAndReturn {
+    
+    NSString * resultStr = [self replaceString:@" " newString:@""];
+    return [resultStr replaceString:@"\n" newString:@""];
 }
 
 /**
@@ -48,9 +52,17 @@
  @param newString 替换的新字符串
  @return          替换后的字符串
  */
-- (NSString *)replaceString:(NSString *)string withNewString:(NSString *)newString {
+- (NSString *)replaceString:(NSString *)string newString:(NSString *)newString {
     
     return [self stringByReplacingOccurrencesOfString:string withString:newString];
+}
+
+/// 替换字符串
+/// @param range     要被替换的字符串位置
+/// @param newString 替换的新字符串
+- (NSString *)replaceStringInRange:(NSRange)range newString:(NSString *)newString {
+    
+    return [self stringByReplacingCharactersInRange:range withString:newString];
 }
 
 /**
@@ -81,16 +93,6 @@
         return [self stringByReplacingOccurrencesOfString:string withString:@""];
     }
     return self;
-}
-
-/**
- 转换成NSData
- 
- @return 转换成的NSData
- */
-- (NSData *)transformToData {
-    
-    return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 /**
@@ -469,128 +471,6 @@
 
 #pragma mark - time and timeStamp
 
-/**
- 获取指定日期
- 
- @param date   时间
- @param format 时间格式
- @return       指定日期
- */
-+ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format {
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:date];
-}
-
-/**
- 获取指定日期
- 
- @param timeStamp 时间戳
- @param format    时间格式
- @return          指定日期
- */
-+ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format {
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
-}
-
-/**
- 根据时间戳获取时间
- 
- @param timeStamp 时间戳
- @return 时间戳对应时间 yyyy-MM-dd HH:mm:ss
- */
-+ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp {
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
-}
-
-/**
- 当前时间
- 
- @return 当前时间  yyyy-MM-dd HH:mm:ss
- */
-+ (NSString *)currentTime {
-    
-    NSDate * currentDate = [NSDate date];
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString * currentTime = [formatter stringFromDate:currentDate];
-    return currentTime;
-}
-
-/**
- 当前时间的时间戳
- 
- @return 当前时间的时间戳
- */
-+ (NSString *)currentTimeStamp {
-    
-    return [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
-}
-
-/**
- 时间戳转换时间
- 
- @return 时间 YYYY-mm-dd hh:MM:ss
- */
-- (NSString *)transformToTime {
-    
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    return [formatter stringFromDate:date];
-}
-
-
-/**
- 时间戳转换时间
-
- @param format 时间格式
- @return       指定格式时间
- */
-- (NSString *)transformToTimeWithFormat:(NSString *)format {
-    
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:[self intValue]];
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:format];
-    return [formatter stringFromDate:date];
-}
-
-/**
- 时间转换时间戳
- 
- @return 时间戳
- */
-- (NSString *)transformToTimeStamp {
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    NSDate * date = [formatter dateFromString:self];
-    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
-}
-
-/**
- 时间转换时间戳
-
- @param farmat 时间格式
- @return       时间戳
- */
-- (NSString *)transformToTimeStampWithFormat:(NSString *)farmat {
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:farmat];
-    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    NSDate * date = [formatter dateFromString:self];
-    return [NSString stringWithFormat:@"%ld",(long)[date timeIntervalSince1970]];
-}
-
 /// 获取指定日期
 /// @param date   日期
 /// @param format 日期格式
@@ -621,7 +501,7 @@
 }
 
 /// 当前日期 yyyy-MM-dd HH:mm:ss
-+ (NSString *)currentDateString {
++ (NSString *)dateString {
     
     NSDate * currentDate = [NSDate date];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
@@ -638,7 +518,7 @@
 }
 
 /// 当前日期的时间戳 10位精确到秒
-+ (NSString *)currentTimeStampString {
++ (NSString *)timeStampString {
     
     return [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 }
@@ -830,13 +710,102 @@
     return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
+#pragma mark - transform
+
 /// 解json生成对象
 - (id)jsonObject {
     
     return [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
 }
 
+/// 转换成NSData
+- (NSData *)dataValue {
+    
+    return [self dataUsingEncoding:NSUTF8StringEncoding];
+}
 
+
+#pragma mark - attributed
+
+/// 属性字符串
+/// @param font        字体
+/// @param lineSpacing 行间距
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineBreakMode 换行打断模式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineBreakMode:lineBreakMode];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param strokeWidth   重影宽
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font strokeWidth:(CGFloat)strokeWidth {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font strokeWidth:strokeWidth];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font alignment:(NSTextAlignment)alignment {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font alignment:alignment];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param lineBreakMode 换行打断模式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing lineBreakMode:lineBreakMode];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param strokeWidth   重影宽
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing strokeWidth:(CGFloat)strokeWidth {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing strokeWidth:strokeWidth];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing alignment:(NSTextAlignment)alignment {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing alignment:alignment];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param strokeWidth   重影宽
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing strokeWidth:(CGFloat)strokeWidth alignment:(NSTextAlignment)alignment {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing strokeWidth:strokeWidth alignment:alignment];
+}
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param lineBreakMode 换行打断模式
+/// @param strokeWidth   重影宽
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing lineBreakMode:(NSLineBreakMode)lineBreakMode strokeWidth:(CGFloat)strokeWidth alignment:(NSTextAlignment)alignment {
+    
+    return [[NSMutableAttributedString alloc] initWithString:self font:font lineSpacing:lineSpacing lineBreakMode:lineBreakMode strokeWidth:strokeWidth alignment:alignment];
+}
 
 @end
 

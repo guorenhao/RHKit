@@ -26,12 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)clearBothEndsSpaceAndReturn;
 
-/**
- 清除所有空格
- 
- @return 清除空格之后的字符串
- */
+/// 清除所有空格
 - (NSString *)clearAllSpace;
+
+/// 清除所有空格和回车
+- (NSString *)clearAllSpaceAndReturn;
 
 /**
  替换字符串
@@ -40,7 +39,12 @@ NS_ASSUME_NONNULL_BEGIN
  @param newString 替换的新字符串
  @return          替换后的字符串
  */
-- (NSString *)replaceString:(NSString *)string withNewString:(NSString *)newString;
+- (NSString *)replaceString:(NSString *)string newString:(NSString *)newString;
+
+/// 替换字符串
+/// @param range     要被替换的字符串位置
+/// @param newString 替换的新字符串
+- (NSString *)replaceStringInRange:(NSRange)range newString:(NSString *)newString;
 
 /**
  添加字符串
@@ -57,13 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return       移除之后的字符串
  */
 - (NSString *)removeSubString:(NSString *)string;
-
-/**
- 转换成NSData
- 
- @return 转换成的NSData
- */
-- (NSData *)transformToData;
 
 /**
  是否全部是字母
@@ -171,77 +168,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - time and timeStamp
 
-/**
- 获取指定日期
- 
- @param date   时间
- @param format 时间格式
- @return       指定日期
- */
-+ (NSString *)stringWithDate:(NSDate *)date format:(NSString *)format;
-
-/**
- 获取指定日期
-
- @param timeStamp 时间戳
- @param format    时间格式
- @return          指定日期
- */
-+ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp format:(NSString *)format;
-
-/**
- 根据时间戳获取时间
- 
- @param timeStamp 时间戳
- @return 时间戳对应时间 yyyy-MM-dd HH:mm:ss
- */
-+ (NSString *)stringWithTimeStamp:(NSTimeInterval)timeStamp;
-
-/**
- 当前时间
- 
- @return 当前时间 yyyy-MM-dd HH:mm:ss
- */
-+ (NSString *)currentTime;
-
-/**
- 时间戳转换时间
- 
- @param format 时间格式
- @return       指定格式时间
- */
-- (NSString *)transformToTimeWithFormat:(NSString *)format;
-
-/**
- 当前时间的时间戳
- 
- @return 当前时间的时间戳 // 10位时间戳
- */
-+ (NSString *)currentTimeStamp;
-
-
-/**
- 时间戳转换时间 // 10位时间戳
- 
- @return 时间 yyyy-MM-dd HH:mm:ss
- */
-- (NSString *)transformToTime;
-
-/**
- 时间转换时间戳 // 时间格式为 yyyy-MM-dd HH:mm:ss
- 
- @return 时间戳
- */
-- (NSString *)transformToTimeStamp;
-
-/**
- 时间转换时间戳
- 
- @param farmat 时间格式
- @return       时间戳
- */
-- (NSString *)transformToTimeStampWithFormat:(NSString *)farmat;
-
 /// 获取指定日期
 /// @param date   日期
 /// @param format 日期格式
@@ -257,14 +183,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp;
 
 /// 当前日期 yyyy-MM-dd HH:mm:ss
-+ (NSString *)currentDateString;
++ (NSString *)dateString;
 
 /// 指定日期的时间戳
 /// @param date 日期
 + (NSString *)timeStampStringWithDate:(NSDate *)date;
 
 /// 当前日期的时间戳 --> 10位精确到秒
-+ (NSString *)currentTimeStampString;
++ (NSString *)timeStampString;
 
 /// 时间戳转换日期 yyyy-MM-dd HH:mm:ss
 - (NSString *)dateString;
@@ -372,8 +298,68 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSString *)stringWithBase64EncodedString:(NSString *)base64EncodedString;
 
+#pragma mark - transform
+
 /// 解json生成对象
 - (nullable id)jsonObject;
+
+/// 转换成NSData
+- (nullable NSData *)dataValue;
+
+#pragma mark - attributed
+
+/// 属性字符串
+/// @param font        字体
+/// @param lineSpacing 行间距
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineBreakMode 换行打断模式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode;
+
+/// 属性字符串
+/// @param font          字体
+/// @param strokeWidth   重影宽
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font strokeWidth:(CGFloat)strokeWidth;
+
+/// 属性字符串
+/// @param font          字体
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font alignment:(NSTextAlignment)alignment;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param lineBreakMode 换行打断模式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing lineBreakMode:(NSLineBreakMode)lineBreakMode;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param strokeWidth   重影宽
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing strokeWidth:(CGFloat)strokeWidth;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing alignment:(NSTextAlignment)alignment;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param strokeWidth   重影宽
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing strokeWidth:(CGFloat)strokeWidth alignment:(NSTextAlignment)alignment;
+
+/// 属性字符串
+/// @param font          字体
+/// @param lineSpacing   行间距
+/// @param lineBreakMode 换行打断模式
+/// @param strokeWidth   重影宽
+/// @param alignment     样式
+- (NSMutableAttributedString *)attributedStringWithFont:(UIFont *)font lineSpacing:(CGFloat)lineSpacing lineBreakMode:(NSLineBreakMode)lineBreakMode strokeWidth:(CGFloat)strokeWidth alignment:(NSTextAlignment)alignment;
 
 @end
 

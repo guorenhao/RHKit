@@ -10,24 +10,6 @@
 
 @implementation NSArray (RHAdd)
 
-/**
- 数组转换json字符串
- 
- @param completionHandler 转换完成回调
- @return                  由数组转换成的json字符串
- */
-- (NSString *)transformToJSONString:(void (^)(NSError * _Nullable))completionHandler {
-    
-    NSError * error = nil;
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:&error];
-    NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    if (completionHandler) {
-        
-        completionHandler(error);
-    }
-    return jsonString;
-}
-
 /// 转换成json字符串
 - (NSString *)jsonString {
     
@@ -59,5 +41,36 @@
     NSLog(@"-[__NSCFArray objectForKeyedSubscript:]: unrecognized selector sent to instance");
     return nil;
 }
+
+#pragma mark - CNLog
+
+#ifdef DEBUG
+
+- (NSString *)descriptionWithLocale:(id)locale {
+    
+    return [self logDescription];;
+}
+
+- (NSString *)description {
+
+    return [self logDescription];
+}
+
+- (NSString *)logDescription {
+    
+    NSString * desc = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    if ([desc hasPrefix:@"["]) {
+        
+        desc = [desc stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"("];
+    }
+    if ([desc hasSuffix:@"]"]) {
+        
+        desc = [desc stringByReplacingCharactersInRange:NSMakeRange(desc.length - 1, 1) withString:@")"];
+    }
+    return desc;
+}
+
+
+#endif
 
 @end

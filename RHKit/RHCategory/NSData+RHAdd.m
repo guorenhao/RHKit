@@ -11,6 +11,8 @@
 
 @implementation NSData (RHAdd)
 
+#pragma mark - hash
+
 /**
  md2加密生成NSData
  */
@@ -457,63 +459,6 @@
 
 #pragma mark - encode and decode
 
-/**
- UTF8加密生成NSString
- */
-- (NSString *)utf8String {
-    
-    if (self.length > 0) {
-        
-        return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
-    }
-    return @"";
-}
-
-/**
- 十六进制加密生成NSString 字母大写
- */
-- (NSString *)hexString {
-    
-    NSUInteger length = self.length;
-    NSMutableString * result = [NSMutableString stringWithCapacity:length * 2];
-    const unsigned char * byte = self.bytes;
-    for (int i = 0; i < length; i++, byte++) {
-        
-        [result appendFormat:@"%02X", *byte];
-    }
-    return result;
-}
-
-/**
- 十六进制转换成NSData
- 
- @param hexString   十六进制字符串
- */
-+ (NSData *)dataWithHexString:(NSString *)hexString {
-    
-    hexString = [hexString stringByReplacingOccurrencesOfString:@" " withString:@""];
-    hexString = [hexString lowercaseString];
-    NSUInteger length = hexString.length;
-    if (!length) return nil;
-    unichar * buffer = malloc(sizeof(unichar) * length);
-    if (!buffer) return nil;
-    [hexString getCharacters:buffer range:NSMakeRange(0, length)];
-    
-    NSMutableData * result = [NSMutableData data];
-    unsigned char bytes;
-    char str[3] = { '\0', '\0', '\0' };
-    int i;
-    for (i = 0; i < length / 2; i++) {
-        str[0] = buffer[i * 2];
-        str[1] = buffer[i * 2 + 1];
-        bytes = strtol(str, NULL, 16);
-        [result appendBytes:&bytes length:1];
-    }
-    free(buffer);
-    return result;
-}
-
-
 static const char base64EncodingTable[64] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static const short base64DecodingTable[256] = {
     -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -2,  -1,  -1, -2, -2,
@@ -626,10 +571,62 @@ static const short base64DecodingTable[256] = {
     return data;
 }
 
+#pragma mark - transform
+
 /// 解json生成对象
 - (id)jsonObject {
     
     return [NSJSONSerialization JSONObjectWithData:self options:kNilOptions error:nil];
 }
+
+/// 转换成utf8字符串
+- (NSString *)utf8String {
+    
+    if (self.length > 0) {
+        
+        return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+    }
+    return @"";
+}
+
+/// 转换成十六进制字符串 字母大写
+- (NSString *)hexString {
+    
+    NSUInteger length = self.length;
+    NSMutableString * result = [NSMutableString stringWithCapacity:length * 2];
+    const unsigned char * byte = self.bytes;
+    for (int i = 0; i < length; i++, byte++) {
+        
+        [result appendFormat:@"%02X", *byte];
+    }
+    return result;
+}
+
+/// 十六进制转换成NSData
+/// @param hexString 十六进制字符串
++ (NSData *)dataWithHexString:(NSString *)hexString {
+    
+    hexString = [hexString stringByReplacingOccurrencesOfString:@" " withString:@""];
+    hexString = [hexString lowercaseString];
+    NSUInteger length = hexString.length;
+    if (!length) return nil;
+    unichar * buffer = malloc(sizeof(unichar) * length);
+    if (!buffer) return nil;
+    [hexString getCharacters:buffer range:NSMakeRange(0, length)];
+    
+    NSMutableData * result = [NSMutableData data];
+    unsigned char bytes;
+    char str[3] = { '\0', '\0', '\0' };
+    int i;
+    for (i = 0; i < length / 2; i++) {
+        str[0] = buffer[i * 2];
+        str[1] = buffer[i * 2 + 1];
+        bytes = strtol(str, NULL, 16);
+        [result appendBytes:&bytes length:1];
+    }
+    free(buffer);
+    return result;
+}
+
 
 @end

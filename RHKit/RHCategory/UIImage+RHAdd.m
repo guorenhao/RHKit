@@ -11,13 +11,11 @@
 
 @implementation UIImage (RHAdd)
 
-/**
- 带尺寸的纯色图片
+#pragma mark - color image
 
- @param color  图片颜色
- @param size   图片尺寸
- @return       图片
- */
+/// 纯色图片
+/// @param color 图片颜色
+/// @param size  图片尺寸
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
     
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
@@ -30,14 +28,10 @@
     return image;
 }
 
-/**
- 定义尺寸的圆角纯色图片
-
- @param color  图片颜色
- @param size   图片尺寸
- @param radius 圆角
- @return       图片
- */
+/// 圆角纯色图片
+/// @param color  图片颜色
+/// @param size   图片尺寸
+/// @param radius 圆角半径
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size radius:(CGFloat)radius {
     
     CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
@@ -54,12 +48,10 @@
     return image;
 }
 
-/**
- 通过view生成图片
- 
- @param view  要生成图片的view
- @return      view图片
- */
+#pragma mark - view image
+
+/// view生成图片
+/// @param view 要生成图片的view
 + (UIImage *)imageWithView:(UIView *)view {
     
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, 0);
@@ -70,13 +62,9 @@
     return image;
 }
 
-/**
- 通过view生成图片
- 
- @param view   要生成图片的view
- @param opaque 是否不透明 NO-白底 YES-黑底
- @return       view图片
- */
+/// view生成图片
+/// @param view   要生成图片的view
+/// @param opaque 是否不透明 NO-白底 YES-黑底
 + (UIImage *)imageWithView:(UIView *)view opaque:(BOOL)opaque {
     
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, opaque, 0.0);
@@ -87,14 +75,10 @@
     return image;
 }
 
-/**
- 通过view生成图片
-
- @param view   要生成图片的view
- @param opaque 是否不透明 NO-白底 YES-黑底
- @param scale  屏幕密度 [UIScreen mainScreen].scale
- @return       view图片
- */
+/// view生成图片
+/// @param view   要生成图片的view
+/// @param opaque 是否不透明 NO-白底 YES-黑底
+/// @param scale  屏幕密度 [UIScreen mainScreen].scale
 + (UIImage *)imageWithView:(UIView *)view opaque:(BOOL)opaque scale:(CGFloat)scale {
     
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, opaque, scale);
@@ -105,13 +89,115 @@
     return image;
 }
 
-/**
- 高斯模糊图片
+#pragma mark - text image
 
- @param image 原图
- @param blur  模糊系数
- @return      高斯模糊图片
- */
+/// 文字生成图片 默认居中
+/// @param text      文字
+/// @param size      生成的图片尺寸
+/// @param font      文字字号
+/// @param textColor 文字颜色
++ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor {
+    
+    return [self imageWithText:text size:size font:font textColor:textColor isCenter:YES];
+}
+
+/// 文字生成图片
+/// @param text      文字
+/// @param size      生成的图片尺寸
+/// @param font      文字字号
+/// @param textColor 文字颜色
+/// @param isCenter  是否居中
++ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor isCenter:(BOOL)isCenter {
+    
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
+    attribute[NSFontAttributeName] = font ?: [UIFont systemFontOfSize:20];
+    attribute[NSForegroundColorAttributeName] = textColor ?: [UIColor blackColor];
+    CGFloat x = 0;
+    CGFloat y = 0;
+    if (isCenter) {
+        
+        CGFloat textWidth = [text boundingRectWithSize:CGSizeMake(0, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.width;
+        CGFloat textHeight = [text boundingRectWithSize:CGSizeMake(1000, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
+        x = (size.width - textWidth) / 2.0;
+        y = (size.height - textHeight) / 2.0;
+    }
+    [text drawInRect:CGRectMake(x, y, size.width, size.height) withAttributes:attribute];
+    UIImage *image  = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+#pragma mark - qrcode image
+
+/// 生成二维码图片
+/// @param content 二维码内容
+/// @param size    生成图片尺寸
++ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size {
+    
+    return [self qrCodeImageWithContent:content size:size centerImage:nil centerSize:0 centerRadius:0];
+}
+
+/// 生成二维码图片
+/// @param content      二维码内容
+/// @param size         生成图片尺寸
+/// @param centerImage  中间插入小图
+/// @param centerRadius 中间插入小图圆角
+
++ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size centerImage:(UIImage *)centerImage centerRadius:(CGFloat)centerRadius {
+    
+    return [self qrCodeImageWithContent:content size:size centerImage:centerImage centerSize:0 centerRadius:centerRadius];
+}
+
+/// 生成二维码图片
+/// @param content      二维码内容
+/// @param size         生成图片尺寸
+/// @param centerImage  中间插入小图
+/// @param centerSize   中间插入小图尺寸
+/// @param centerRadius 中间插入小图圆角
++ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size centerImage:(UIImage *)centerImage centerSize:(CGFloat)centerSize centerRadius:(CGFloat)centerRadius {
+    
+    // 1.创建QRCode过滤器
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    // 2.恢复默认
+    [filter setDefaults];
+    // 3.给过滤器添加数据
+    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    // 4.通过KVO设置滤镜inputMessage数据
+    [filter setValue:data forKeyPath:@"inputMessage"];
+    // 5.获取输出的二维码
+    CIImage *image = [filter outputImage];
+    CGRect extent = CGRectIntegral(image.extent);
+    CGFloat scale = MIN(size/CGRectGetWidth(extent), size/CGRectGetHeight(extent));
+    // 1.创建bitmap;
+    size_t width = CGRectGetWidth(extent) * scale;
+    size_t height = CGRectGetHeight(extent) * scale;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace, (CGBitmapInfo)kCGImageAlphaNone);
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
+    CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
+    CGContextScaleCTM(bitmapRef, scale, scale);
+    CGContextDrawImage(bitmapRef, extent, bitmapImage);
+    // 2.创建bitmap图片
+    CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
+    CGContextRelease(bitmapRef);
+    CGImageRelease(bitmapImage);
+    CGColorSpaceRelease(colorSpace);
+    UIImage *qrImage = [UIImage imageWithCGImage:scaledImage];
+    CGImageRelease(scaledImage);
+    if (centerImage) {
+        
+        return [qrImage insertQRCodeCenterImage:centerImage size:centerSize radius:centerRadius];
+    }
+    return qrImage;
+}
+
+#pragma mark - gaussianBlur image
+
+/// 高斯模糊图片
+/// @param image 原图
+/// @param blur  模糊系数 0~1
 + (UIImage *)gaussianBlurImageWithImage:(UIImage *)image blur:(CGFloat)blur {
     
     if (blur < 0.f || blur > 1.f) {
@@ -158,96 +244,8 @@
     return resultImage;
 }
 
-/// 文字生成图片 默认居中
-/// @param text      文字
-/// @param size      生成的图片尺寸
-/// @param font      文字字号
-/// @param textColor 文字颜色
-+ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor {
-    
-    return [self imageWithText:text size:size font:font textColor:textColor isCenter:YES];
-}
 
-/// 文字生成图片
-/// @param text      文字
-/// @param size      生成的图片尺寸
-/// @param font      文字字号
-/// @param textColor 文字颜色
-/// @param isCenter  是否居中
-+ (UIImage *)imageWithText:(NSString *)text size:(CGSize)size font:(UIFont *)font textColor:(UIColor *)textColor isCenter:(BOOL)isCenter {
-    
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    NSMutableDictionary *attribute = [NSMutableDictionary dictionary];
-    attribute[NSFontAttributeName] = font ?: [UIFont systemFontOfSize:20];
-    attribute[NSForegroundColorAttributeName] = textColor ?: [UIColor blackColor];
-    CGFloat x = 0;
-    CGFloat y = 0;
-    if (isCenter) {
-        
-        CGFloat textWidth = [text boundingRectWithSize:CGSizeMake(0, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.width;
-        CGFloat textHeight = [text boundingRectWithSize:CGSizeMake(1000, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size.height;
-        x = (size.width - textWidth) / 2.0;
-        y = (size.height - textHeight) / 2.0;
-    }
-    [text drawInRect:CGRectMake(x, y, size.width, size.height) withAttributes:attribute];
-    UIImage *image  = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-
-/// 生成二维码图片
-/// @param content 二维码内容
-/// @param size    生成图片尺寸
-+ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size {
-    
-    return [self qrCodeImageWithContent:content size:size centerImage:nil centerRadius:0];
-}
-
-/// 生成二维码图片
-/// @param content      二维码内容
-/// @param size         生成图片尺寸
-/// @param centerImage  中间插入小图
-/// @param centerRadius 中间插入小图圆角
-+ (UIImage *)qrCodeImageWithContent:(NSString *)content size:(CGFloat)size centerImage:(UIImage *)centerImage centerRadius:(CGFloat)centerRadius {
-    
-    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
-    // 2.恢复默认
-    [filter setDefaults];
-    // 3.给过滤器添加数据
-    // NSString *dataString = @"http://www.520it.com";
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
-    // 4.通过KVO设置滤镜inputMessage数据
-    [filter setValue:data forKeyPath:@"inputMessage"];
-    // 4.获取输出的二维码
-    CIImage *image = [filter outputImage];
-    CGRect extent = CGRectIntegral(image.extent);
-    CGFloat scale = MIN(size/CGRectGetWidth(extent), size/CGRectGetHeight(extent));
-    // 1.创建bitmap;
-    size_t width = CGRectGetWidth(extent) * scale;
-    size_t height = CGRectGetHeight(extent) * scale;
-    CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
-    CGContextRef bitmapRef = CGBitmapContextCreate(nil, width, height, 8, 0, cs, (CGBitmapInfo)kCGImageAlphaNone);
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CGImageRef bitmapImage = [context createCGImage:image fromRect:extent];
-    CGContextSetInterpolationQuality(bitmapRef, kCGInterpolationNone);
-    CGContextScaleCTM(bitmapRef, scale, scale);
-    CGContextDrawImage(bitmapRef, extent, bitmapImage);
-    // 2.保存bitmap到图片
-    CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
-    CGContextRelease(bitmapRef);
-    CGImageRelease(bitmapImage);
-    CGColorSpaceRelease(cs);
-    UIImage *qrImage = [UIImage imageWithCGImage:scaledImage];
-    CGImageRelease(scaledImage);
-    if (centerImage) {
-        
-        return [self imageOfQRCodeInsertImage:centerImage originImage:qrImage radius:centerRadius];
-    }
-    return qrImage;
-}
-
-
-#pragma mark - 拉伸图片
+#pragma mark - scale
 
 /**
  拉伸图片到指定尺寸
@@ -267,51 +265,60 @@
 #pragma mark - private
 
 // 在渲染后的二维码图上进行图片插入，如插入图为空，直接返回二维码图
-+ (UIImage *)imageOfQRCodeInsertImage:(UIImage *)insertImage originImage:(UIImage *)originImage radius:(CGFloat)radius {
+- (UIImage *)insertQRCodeCenterImage:(UIImage *)centerImage size:(CGFloat)size radius:(CGFloat)radius {
     
-    if (!insertImage) {
+    if (!centerImage) {
         
-        return originImage;
+        return self;
     }
-    insertImage = [self imageOfRoundCornerWithImage:insertImage radius:radius];
-    UIImage * whiteBG = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(30, 30)];
-    whiteBG = [self imageOfRoundCornerWithImage:whiteBG radius:radius];
+    CGSize bgSize;
+    if (size >= 30) {
+        
+        bgSize = CGSizeMake(size, size);
+    } else {
+        
+        bgSize = CGSizeMake(self.size.width / 4, self.size.height / 4);
+    }
+    centerImage = RHCreateCornerRadiusImage(centerImage, radius);
+    UIImage * whiteBG = [UIImage imageWithColor:[UIColor whiteColor] size:bgSize];
+    whiteBG = RHCreateCornerRadiusImage(whiteBG, radius);
     // 白色边缘宽度
-    const CGFloat whiteSize = 5.f;
-    CGSize brinkSize = CGSizeMake(originImage.size.width / 4, originImage.size.height / 4);
-    CGFloat brinkX = (originImage.size.width - brinkSize.width) * 0.5;
-    CGFloat brinkY = (originImage.size.height - brinkSize.height) * 0.5;
-    CGSize imageSize = CGSizeMake(brinkSize.width - 2 * whiteSize, brinkSize.height - 2 * whiteSize);
-    CGFloat imageX = brinkX + whiteSize;
-    CGFloat imageY = brinkY + whiteSize;
-    UIGraphicsBeginImageContext(originImage.size);
-    [originImage drawInRect:(CGRect){0, 0, (originImage.size)}];
-    [whiteBG drawInRect:(CGRect){brinkX, brinkY, (brinkSize)}];
-    [insertImage drawInRect:(CGRect){imageX, imageY, (imageSize)}];
+    const CGFloat brinkWidth = 5.f;
+    CGFloat bgX = (self.size.width - bgSize.width) * 0.5;
+    CGFloat bgY = (self.size.height - bgSize.height) * 0.5;
+    CGSize imageSize = CGSizeMake(bgSize.width - 2 * brinkWidth, bgSize.height - 2 * brinkWidth);
+    CGFloat imageX = bgX + brinkWidth;
+    CGFloat imageY = bgY + brinkWidth;
+    UIGraphicsBeginImageContext(self.size);
+    [self drawInRect:(CGRect){0, 0, (self.size)}];
+    [whiteBG drawInRect:(CGRect){bgX, bgY, (bgSize)}];
+    [centerImage drawInRect:(CGRect){imageX, imageY, (imageSize)}];
     UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return resultImage;
 }
 
-// 给传入的图片设置圆角后返回
-+ (UIImage *)imageOfRoundCornerWithImage:(UIImage *)image radius:(CGFloat)radius {
+// 生成圆角图片
+UIImage * RHCreateCornerRadiusImage(UIImage *image, CGFloat radius) {
     
-    if (!image || (NSNull *)image == [NSNull null]) {
+    if (!image) {
         
         return nil;
+    }
+    if (radius <= 0) {
+        
+        return image;
     }
     CGSize size = image.size;
     const CGFloat width = size.width;
     const CGFloat height = size.height;
-    radius = MAX(5.0, radius);
-    radius = MIN(10.0, radius);
     UIImage * resultImage = image;
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
     CGContextRef contextRef = CGBitmapContextCreate(NULL, width, height, 8, 4 * width, colorSpaceRef, kCGImageAlphaPremultipliedFirst);
     CGRect rect = CGRectMake(0, 0, width, height);
     // 绘制圆角
     CGContextBeginPath(contextRef);
-    RHAddRoundCornerToPath(contextRef, rect, radius, resultImage.CGImage);
+    RHAddCornerRadiusPath(contextRef, rect, radius, resultImage.CGImage);
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
     resultImage = [UIImage imageWithCGImage:imageRef];
     CGContextRelease(contextRef);
@@ -321,7 +328,7 @@
 }
 
 // 给上下文添加圆角模板
-void RHAddRoundCornerToPath(CGContextRef contexRef, CGRect rect, float radius, CGImageRef imageRef) {
+void RHAddCornerRadiusPath(CGContextRef contexRef, CGRect rect, float radius, CGImageRef imageRef) {
     
     if (radius == 0) {
         
