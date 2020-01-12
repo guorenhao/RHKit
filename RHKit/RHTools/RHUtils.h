@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 #pragma mark - method exchange
 /// 类方法交换
