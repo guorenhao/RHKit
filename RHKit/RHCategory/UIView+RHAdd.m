@@ -87,14 +87,12 @@ static char rh_kIndexPath;
     [self setAnchorPoint:CGPointMake(0.5f, 0.5f)];
 }
 
-@end
-
 static char rh_kColors;
 static char rh_kLocations;
 static char rh_kStartPoint;
 static char rh_kEndPoint;
 
-@implementation UIView (Gradient)
+#pragma mark - Gradient
 
 - (void)setColors:(NSArray *)colors {
     
@@ -214,10 +212,36 @@ static char rh_kEndPoint;
     self.layer.shadowRadius = shadowRadius;
 }
 
-@end
+#pragma mark - Animation
 
-@implementation UIView (RHFrame)
+/// 淡入动画
+/// @param duration   动画时长
+/// @param completion 动画完成回调
+- (void)fadeInWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL))completion {
+    
+    self.alpha = 0.0;
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration animations:^{
+        
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf.alpha = 1.0;
+    } completion:completion];
+}
 
+/// 淡出动画
+/// @param duration   动画时长
+/// @param completion 动画完成回调
+- (void)fadeOutWithDuration:(NSTimeInterval)duration completion:(void (^)(BOOL))completion {
+    
+    __weak typeof(self) weakSelf = self;
+    [UIView animateWithDuration:duration animations:^{
+        
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        strongSelf.alpha = 0.0;
+    } completion:completion];
+}
+
+#pragma mark - Frame
 
 /* 最小x值 */
 - (CGFloat)minX {

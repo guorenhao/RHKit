@@ -25,6 +25,7 @@
 #import <RHKit/UITextView+RHAdd.h>
 #import <RHKit/UIPickerView+RHAdd.h>
 #import <RHKit/UIWindow+RHAdd.h>
+#import <RHKit/UINavigationController+RHAdd.h>
 
 #import <RHKit/RHView.h>
 #import <RHKit/RHLabel.h>
@@ -33,6 +34,7 @@
 #import <RHKit/RHTextField.h>
 
 #import <RHKit/RHApplication.h>
+#import <RHKit/RHUtils>
 #import <RHKit/RHTools>
 #import <RHKit/RHPath.h>
 #import <RHKit/RHDate.h>
@@ -54,6 +56,7 @@
 #import "UITextView+RHAdd.h"
 #import "UIPickerView+RHAdd.h"
 #import "UIWindow+RHAdd.h"
+#import "UINavigationController+RHAdd.h"
 
 #import "RHView.h"
 #import "RHLabel.h"
@@ -62,6 +65,7 @@
 #import "RHTextField.h"
 
 #import "RHApplication.h"
+#import "RHUtils.h"
 #import "RHTools.h"
 #import "RHPath.h"
 #import "RHDate.h"

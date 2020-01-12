@@ -44,9 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setDefaultAnchorPoint;
 
-@end
-
-@interface UIView (Gradient)
+#pragma mark - Gradient
 
 /* 渐变颜色数组 数组元素：CGColorRef */
 @property (nonatomic, copy) NSArray * colors;
@@ -92,9 +90,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shadowRadius  阴影半径（宽度）
 - (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius;
 
-@end
+#pragma mark - Animation
 
-@interface UIView (RHFrame)
+/// 淡入动画
+/// @param duration   动画时长
+/// @param completion 动画完成回调
+- (void)fadeInWithDuration:(NSTimeInterval)duration completion:(nullable void (^)(BOOL finished))completion;
+
+/// 淡出动画
+/// @param duration   动画时长
+/// @param completion 动画完成回调
+- (void)fadeOutWithDuration:(NSTimeInterval)duration completion:(nullable void (^)(BOOL finished))completion;
+
+
+#pragma mark - Frame
 
 /* 最小x值 frame.origin.x */
 @property (nonatomic) CGFloat minX;

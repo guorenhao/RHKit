@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 生成圆角图片
+/// @param image        原图
+/// @param cornerRadius 圆角半径
+UIImage * _Nullable RHCreateRoundCornerImage(UIImage *image, CGFloat cornerRadius);
+
 @interface UIImage (RHAdd)
 
 #pragma mark - color image
@@ -93,6 +98,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 拉伸图片到指定尺寸
 /// @param newSize 要拉伸的尺寸
 - (UIImage *)scaleToSize:(CGSize)newSize;
+
+/// 裁剪图片
+/// @param rect 裁剪区域
+- (nullable UIImage *)tailorInRect:(CGRect)rect;
 
 @end
 

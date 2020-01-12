@@ -16,26 +16,6 @@
     return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:kNilOptions error:nil] encoding:NSUTF8StringEncoding];
 }
 
-#pragma mark - CNLog
-
-#ifdef DEBUG
-
-- (NSString *)descriptionWithLocale:(id)locale {
-    
-    return [self logDescription];;
-}
-
-- (NSString *)description {
-        
-    return [self logDescription];
-}
-
-- (NSString *)logDescription {
-    
-    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-}
-
-#endif
 
 
 @end

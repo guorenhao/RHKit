@@ -1,8 +1,8 @@
 //
 //  RHDate.h
-//  RHDemo
+//  RHKit
 //
-//  Created by 郭人豪 on 2020/1/4.
+//  Created by Abner_G on 2020/1/4.
 //  Copyright © 2020 Abner_G. All rights reserved.
 //
 

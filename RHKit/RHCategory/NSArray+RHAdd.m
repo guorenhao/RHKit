@@ -42,35 +42,5 @@
     return nil;
 }
 
-#pragma mark - CNLog
-
-#ifdef DEBUG
-
-- (NSString *)descriptionWithLocale:(id)locale {
-    
-    return [self logDescription];;
-}
-
-- (NSString *)description {
-
-    return [self logDescription];
-}
-
-- (NSString *)logDescription {
-    
-    NSString * desc = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-    if ([desc hasPrefix:@"["]) {
-        
-        desc = [desc stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@"("];
-    }
-    if ([desc hasSuffix:@"]"]) {
-        
-        desc = [desc stringByReplacingCharactersInRange:NSMakeRange(desc.length - 1, 1) withString:@")"];
-    }
-    return desc;
-}
-
-
-#endif
 
 @end

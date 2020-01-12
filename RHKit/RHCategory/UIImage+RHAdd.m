@@ -262,6 +262,27 @@
     return newImage;
 }
 
+/// 裁剪图片
+/// @param rect 裁剪区域
+- (UIImage *)tailorInRect:(CGRect)rect {
+    
+    if (CGRectEqualToRect(rect, CGRectZero)) {
+        
+        return nil;
+    }
+    // 原图
+    CGImageRef originalImageRef = self.CGImage;
+    // 截图的区域
+    CGImageRef newImageRef = CGImageCreateWithImageInRect(originalImageRef, rect);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawImage(context, rect, newImageRef);
+    UIImage * newImage = [UIImage imageWithCGImage:newImageRef];
+    CGImageRelease(newImageRef);
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 #pragma mark - private
 
 // 在渲染后的二维码图上进行图片插入，如插入图为空，直接返回二维码图
@@ -279,9 +300,9 @@
         
         bgSize = CGSizeMake(self.size.width / 4, self.size.height / 4);
     }
-    centerImage = RHCreateCornerRadiusImage(centerImage, radius);
+    centerImage = RHCreateRoundCornerImage(centerImage, radius);
     UIImage * whiteBG = [UIImage imageWithColor:[UIColor whiteColor] size:bgSize];
-    whiteBG = RHCreateCornerRadiusImage(whiteBG, radius);
+    whiteBG = RHCreateRoundCornerImage(whiteBG, radius);
     // 白色边缘宽度
     const CGFloat brinkWidth = 5.f;
     CGFloat bgX = (self.size.width - bgSize.width) * 0.5;
@@ -299,13 +320,13 @@
 }
 
 // 生成圆角图片
-UIImage * RHCreateCornerRadiusImage(UIImage *image, CGFloat radius) {
+UIImage * RHCreateRoundCornerImage(UIImage *image, CGFloat cornerRadius) {
     
     if (!image) {
         
         return nil;
     }
-    if (radius <= 0) {
+    if (cornerRadius <= 0) {
         
         return image;
     }
@@ -318,7 +339,7 @@ UIImage * RHCreateCornerRadiusImage(UIImage *image, CGFloat radius) {
     CGRect rect = CGRectMake(0, 0, width, height);
     // 绘制圆角
     CGContextBeginPath(contextRef);
-    RHAddCornerRadiusPath(contextRef, rect, radius, resultImage.CGImage);
+    RHAddRoundCornerPath(contextRef, rect, cornerRadius, resultImage.CGImage);
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
     resultImage = [UIImage imageWithCGImage:imageRef];
     CGContextRelease(contextRef);
@@ -328,9 +349,9 @@ UIImage * RHCreateCornerRadiusImage(UIImage *image, CGFloat radius) {
 }
 
 // 给上下文添加圆角模板
-void RHAddCornerRadiusPath(CGContextRef contexRef, CGRect rect, float radius, CGImageRef imageRef) {
+void RHAddRoundCornerPath(CGContextRef contexRef, CGRect rect, CGFloat cornerRadius, CGImageRef imageRef) {
     
-    if (radius == 0) {
+    if (cornerRadius == 0) {
         
         CGContextAddRect(contexRef, rect);
         return;
@@ -342,10 +363,10 @@ void RHAddCornerRadiusPath(CGContextRef contexRef, CGRect rect, float radius, CG
     height = CGRectGetHeight(rect);
     // 裁剪路径
     CGContextMoveToPoint(contexRef, width, height / 2);
-    CGContextAddArcToPoint(contexRef, width, height, width / 2, height, radius);
-    CGContextAddArcToPoint(contexRef, 0, height, 0, height / 2, radius);
-    CGContextAddArcToPoint(contexRef, 0, 0, width / 2, 0, radius);
-    CGContextAddArcToPoint(contexRef, width, 0, width, height / 2, radius);
+    CGContextAddArcToPoint(contexRef, width, height, width / 2, height, cornerRadius);
+    CGContextAddArcToPoint(contexRef, 0, height, 0, height / 2, cornerRadius);
+    CGContextAddArcToPoint(contexRef, 0, 0, width / 2, 0, cornerRadius);
+    CGContextAddArcToPoint(contexRef, width, 0, width, height / 2, cornerRadius);
     CGContextClosePath(contexRef);
     CGContextClip(contexRef);
     CGContextDrawImage(contexRef, CGRectMake(0, 0, width, height), imageRef);

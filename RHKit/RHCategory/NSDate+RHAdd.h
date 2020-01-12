@@ -1,8 +1,8 @@
 //
 //  NSDate+RHAdd.h
-//  CocoapodsDemo
+//  RHKit
 //
-//  Created by 郭人豪 on 2019/6/22.
+//  Created by Abner_G on 2019/6/22.
 //  Copyright © 2019 Abner_G. All rights reserved.
 //
 
