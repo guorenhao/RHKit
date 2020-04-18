@@ -16,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSIndexPath * indexPath;
 /* 底部安全区域 */
 @property (nonatomic, assign, readonly) CGFloat safeAreaBottom;
+/* 边框颜色 */
+@property (nonatomic, strong) UIColor * borderColor;
+/* 边框宽度 */
+@property (nonatomic, assign) CGFloat borderWidth;
+/* 圆角半径 */
+@property (nonatomic, assign) CGFloat cornerRadius;
+/* 是否切除超出部分 */
+@property (nonatomic, assign) BOOL masksToBounds;
 
 /**
  移除所有子视图
@@ -73,6 +81,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shadowRadius  阴影半径（宽度）
 + (instancetype)viewWithShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius;
 
+/// 类方法快速创建对象
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
+/// @param cornerRadius  阴影圆角半径
++ (instancetype)viewWithShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius cornerRadius:(CGFloat)cornerRadius;
+
 /**
  设置渐变色
  
@@ -89,6 +105,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param shadowOpacity 阴影透明度
 /// @param shadowRadius  阴影半径（宽度）
 - (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius;
+
+/// 设置阴影（背景不能是透明色，否则将不显示阴影）
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
+/// @param cornerRadius  阴影圆角半径
+- (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius cornerRadius:(CGFloat)cornerRadius;
 
 #pragma mark - Animation
 

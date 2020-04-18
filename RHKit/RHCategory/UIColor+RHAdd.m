@@ -103,5 +103,42 @@
                            alpha:alpha];
 }
 
+#pragma mark - rgb
+
+/// 获取颜色rgba属性
+- (UIColorAttribute *)colorAttribute {
+    
+    return [UIColorAttribute attributeWithColor:self];
+}
+
+/// 颜色置为灰白色
+- (UIColor *)gray {
+    
+    CGFloat r = 0.0;
+    CGFloat g = 0.0;
+    CGFloat b = 0.0;
+    CGFloat a = 0.0;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    CGFloat m = (r + g + b)/3.0;
+    return [UIColor colorWithRed:m green:m blue:m alpha:a];
+}
+
+@end
+@implementation UIColorAttribute
+
++ (instancetype)attributeWithColor:(UIColor *)color {
+    
+    UIColorAttribute * attribute = [[[self class] alloc] init];
+    CGFloat r = 0.0;
+    CGFloat g = 0.0;
+    CGFloat b = 0.0;
+    CGFloat a = 0.0;
+    [color getRed:&r green:&g blue:&b alpha:&a];
+    attribute.red = r;
+    attribute.green = g;
+    attribute.blue = b;
+    attribute.alpha = a;
+    return attribute;
+}
 
 @end

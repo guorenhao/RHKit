@@ -183,6 +183,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param timeStamp 时间戳
 + (NSString *)dateStringWithTimeStamp:(NSTimeInterval)timeStamp;
 
+/// 获取当前指定日期
+/// @param format 日期格式
++ (NSString *)dateStringWithFormat:(NSString *)format;
+
 /// 当前日期 yyyy-MM-dd HH:mm:ss
 + (NSString *)dateString;
 
@@ -192,6 +196,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 当前日期的时间戳 --> 10位精确到秒
 + (NSString *)timeStampString;
+
+/// 指定日期的农历月
+/// @param date 日期
++ (NSString *)lunarMonthWithDate:(NSDate *)date;
+
+/// 当前日期的农历月
++ (NSString *)lunarMonth;
+
+/// 指定日期的农历日
+/// @param date 日期
++ (NSString *)lunarDayWithDate:(NSDate *)date;
+
+/// 当前日期的农历日
++ (NSString *)lunarDay;
+
 
 /// 时间戳转换日期 yyyy-MM-dd HH:mm:ss
 - (NSString *)dateString;

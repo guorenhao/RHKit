@@ -500,14 +500,23 @@
     return [formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeStamp]];
 }
 
+/// 获取当前指定日期
+/// @param format 日期格式
++ (NSString *)dateStringWithFormat:(NSString *)format {
+    
+    NSDate * date = [NSDate date];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    return [formatter stringFromDate:date];
+}
+
 /// 当前日期 yyyy-MM-dd HH:mm:ss
 + (NSString *)dateString {
     
     NSDate * currentDate = [NSDate date];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString * currentTime = [formatter stringFromDate:currentDate];
-    return currentTime;
+    return [formatter stringFromDate:currentDate];
 }
 
 /// 指定日期的时间戳
@@ -522,6 +531,49 @@
     
     return [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
 }
+
+/// 指定日期的农历月
+/// @param date 日期
++ (NSString *)lunarMonthWithDate:(NSDate *)date {
+    
+    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+    NSDateComponents * dateComponets = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
+    NSArray * lunarMonth = [NSArray arrayWithObjects:@"正", @"二", @"三", @"四", @"五", @"六", @"七", @"八", @"九", @"十", @"冬", @"腊", nil];
+    NSInteger index = (dateComponets.month - 1) % 12;
+    if (index >= 0 && index < 12) {
+        
+        return [NSString stringWithFormat:@"%@月", [lunarMonth objectAtIndex:index]];
+    }
+    return @"";
+}
+
+/// 当前日期的农历月
++ (NSString *)lunarMonth {
+    
+    return [NSString lunarMonthWithDate:[NSDate date]];
+}
+
+/// 指定日期的农历日
+/// @param date 日期
++ (NSString *)lunarDayWithDate:(NSDate *)date {
+    
+    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+    NSDateComponents * dateComponets = [calendar components:NSCalendarUnitDay fromDate:[NSDate date]];
+    NSArray * lunarMonth = [NSArray arrayWithObjects:@"初一", @"初二", @"初三", @"初四", @"初五", @"初六", @"初七", @"初八", @"初九", @"初十", @"十一", @"十二", @"十三", @"十四", @"十五", @"十六", @"十七", @"十八", @"十九", @"二十", @"二十一", @"二十二", @"二十三", @"二十四", @"二十五", @"二十六", @"二十七", @"二十八", @"二十九", @"三十", nil];
+    NSInteger index = (dateComponets.day - 1) % 30;
+    if (index >= 0 && index < 30) {
+        
+        return [lunarMonth objectAtIndex:index];
+    }
+    return @"";
+}
+
+/// 当前日期的农历日
++ (NSString *)lunarDay {
+    
+    return [NSString lunarDayWithDate:[NSDate date]];
+}
+
 
 /// 时间戳转换日期 10位 --> yyyy-MM-dd HH:mm:ss
 - (NSString *)dateString {

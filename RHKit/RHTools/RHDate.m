@@ -51,6 +51,45 @@
     return [self dayWithDate:[NSDate date]];
 }
 
+/// 指定日期的农历年
+/// @param date 日期
++ (NSInteger)lunarYearWithDate:(NSDate *)date {
+    
+    return [[self componetsWithDate:date unit:NSCalendarUnitYear calendarIdentifier:NSCalendarIdentifierChinese] year];
+}
+
+/// 当前日期的农历年
++ (NSInteger)lunarYear {
+    
+    return [self lunarYearWithDate:[NSDate date]];
+}
+
+/// 指定日期的农历月
+/// @param date 日期
++ (NSInteger)lunarMonthWithDate:(NSDate *)date {
+    
+    return [[self componetsWithDate:date unit:NSCalendarUnitMonth calendarIdentifier:NSCalendarIdentifierChinese] month];
+}
+
+/// 当前日期的农历月
++ (NSInteger)lunarMonth {
+    
+    return [self lunarMonthWithDate:[NSDate date]];
+}
+
+/// 指定日期的农历日
+/// @param date 日期
++ (NSInteger)lunarDayWithDate:(NSDate *)date {
+    
+    return [[self componetsWithDate:date unit:NSCalendarUnitDay calendarIdentifier:NSCalendarIdentifierChinese] day];
+}
+
+/// 当前日期的农历日
++ (NSInteger)lunarDay {
+    
+    return [self lunarDayWithDate:[NSDate date]];
+}
+
 /// 指定日期的时
 /// @param date 日期
 + (NSInteger)hourWithDate:(NSDate *)date {
@@ -120,6 +159,11 @@
     return [calendar components:unit fromDate:date];
 }
 
++ (NSDateComponents *)componetsWithDate:(NSDate *)date unit:(NSCalendarUnit)unit calendarIdentifier:(NSCalendarIdentifier)calendarIdentifier {
+    
+    NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:calendarIdentifier];
+    return [calendar components:unit fromDate:date];
+}
 
 
 @end

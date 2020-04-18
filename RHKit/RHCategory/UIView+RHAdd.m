@@ -10,6 +10,10 @@
 #import <objc/runtime.h>
 
 static char rh_kIndexPath;
+static char rh_kBorderColor;
+static char rh_kBorderWidth;
+static char rh_kCornerRadius;
+static char rh_kMasksToBounds;
 
 @implementation UIView (RHAdd)
 
@@ -18,12 +22,52 @@ static char rh_kIndexPath;
     
     objc_setAssociatedObject(self, &rh_kIndexPath, indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
 - (NSIndexPath *)indexPath {
     
     return objc_getAssociatedObject(self, &rh_kIndexPath);
 }
+/* 边框颜色 */
+- (void)setBorderColor:(UIColor *)borderColor {
+    
+    objc_setAssociatedObject(self, &rh_kBorderColor, borderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.layer.borderColor = borderColor.CGColor;
+}
+- (UIColor *)borderColor {
+    
+    return objc_getAssociatedObject(self, &rh_kBorderColor);
+}
+/* 边框宽度 */
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    
+    objc_setAssociatedObject(self, &rh_kBorderWidth, [NSNumber numberWithFloat:borderWidth], OBJC_ASSOCIATION_ASSIGN);
+    self.layer.borderWidth = borderWidth;
+}
+- (CGFloat)borderWidth {
+    
+    return [objc_getAssociatedObject(self, &rh_kBorderWidth) floatValue];
+}
+/* 圆角半径 */
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    
+    objc_setAssociatedObject(self, &rh_kCornerRadius, [NSNumber numberWithFloat:cornerRadius], OBJC_ASSOCIATION_ASSIGN);
+    self.layer.cornerRadius = cornerRadius;
+}
+- (CGFloat)cornerRadius {
+    
+    return [objc_getAssociatedObject(self, &rh_kCornerRadius) floatValue];
+}
+/* 是否切除超出部分 */
+- (void)setMasksToBounds:(BOOL)masksToBounds {
+    
+    objc_setAssociatedObject(self, &rh_kMasksToBounds, [NSNumber numberWithBool:masksToBounds], OBJC_ASSOCIATION_ASSIGN);
+    self.layer.masksToBounds = masksToBounds;
+}
+- (BOOL)masksToBounds {
+    
+    return [objc_getAssociatedObject(self, &rh_kMasksToBounds) floatValue];
+}
 
+/// 底部安全区域
 - (CGFloat)safeAreaBottom {
     
     CGFloat safeAreaBottom = 0;
@@ -167,6 +211,19 @@ static char rh_kEndPoint;
     return view;
 }
 
+/// 类方法快速创建对象
+/// @param shadowColor   阴影颜色
+/// @param shadowOffset  阴影偏移
+/// @param shadowOpacity 阴影透明度
+/// @param shadowRadius  阴影半径（宽度）
+/// @param cornerRadius  阴影圆角半径
++ (instancetype)viewWithShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius cornerRadius:(CGFloat)cornerRadius {
+    
+    UIView * view = [[self alloc] init];
+    [view setShadowColor:shadowColor shadowOffset:shadowOffset shadowOpacity:shadowOpacity shadowRadius:shadowRadius cornerRadius:cornerRadius];
+    return view;
+}
+
 /**
  设置渐变色
  
@@ -206,10 +263,21 @@ static char rh_kEndPoint;
 /// @param shadowRadius  阴影半径（宽度）
 - (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius {
     
+    self.layer.masksToBounds = NO;
     self.layer.shadowColor = shadowColor.CGColor;
     self.layer.shadowOffset = shadowOffset;
     self.layer.shadowOpacity = shadowOpacity;
     self.layer.shadowRadius = shadowRadius;
+}
+
+- (void)setShadowColor:(UIColor *)shadowColor shadowOffset:(CGSize)shadowOffset shadowOpacity:(CGFloat)shadowOpacity shadowRadius:(CGFloat)shadowRadius cornerRadius:(CGFloat)cornerRadius {
+    
+    self.layer.masksToBounds = NO;
+    self.layer.shadowColor = shadowColor.CGColor;
+    self.layer.shadowOffset = shadowOffset;
+    self.layer.shadowOpacity = shadowOpacity;
+    self.layer.shadowRadius = shadowRadius;
+    self.layer.cornerRadius = cornerRadius;
 }
 
 #pragma mark - Animation

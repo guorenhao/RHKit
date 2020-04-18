@@ -49,3 +49,6 @@ BOOL RHCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoordinate2
 
 BOOL ZXStringEqual(NSString * str1, NSString * str2);
 
+#pragma mark - get image type
+
+RHImageType RHImageTypeForImageData(NSData *imageData);

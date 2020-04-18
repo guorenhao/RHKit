@@ -33,6 +33,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前日期的日
 + (NSInteger)day;
 
+/// 指定日期的农历年
+/// @param date 日期
++ (NSInteger)lunarYearWithDate:(NSDate *)date;
+
+/// 当前日期的农历年
++ (NSInteger)lunarYear;
+
+/// 指定日期的农历月
+/// @param date 日期
++ (NSInteger)lunarMonthWithDate:(NSDate *)date;
+
+/// 当前日期的农历月
++ (NSInteger)lunarMonth;
+
+/// 指定日期的农历日
+/// @param date 日期
++ (NSInteger)lunarDayWithDate:(NSDate *)date;
+
+/// 当前日期的农历日
++ (NSInteger)lunarDay;
+
 /// 指定日期的时
 /// @param date 日期
 + (NSInteger)hourWithDate:(NSDate *)date;

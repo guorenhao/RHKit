@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class UIColorAttribute;
 @interface UIColor (RHAdd)
 
 /**
@@ -53,6 +54,26 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIColor *)colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
 
+#pragma mark - rgb
+
+/// 获取颜色rgba属性
+- (UIColorAttribute *)colorAttribute;
+
+/// 颜色置为灰白色
+- (UIColor *)gray;
+
+@end
+@interface UIColorAttribute : NSObject
+
+@property (nonatomic, assign) CGFloat red;
+
+@property (nonatomic, assign) CGFloat green;
+
+@property (nonatomic, assign) CGFloat blue;
+
+@property (nonatomic, assign) CGFloat alpha;
+
++ (instancetype)attributeWithColor:(UIColor *)color;
 
 @end
 

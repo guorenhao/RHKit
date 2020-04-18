@@ -283,6 +283,26 @@
     return newImage;
 }
 
+#pragma mark - gray
+
+/// 图片绘制成灰白色
+- (UIImage *)gray {
+    
+    CGFloat scale = [UIScreen mainScreen].scale;
+    CGFloat width = self.size.width * scale;
+    CGFloat height = self.size.height * scale;
+    CGRect rect = CGRectMake(0, 0, width, height);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
+    CGContextRef context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);//使用kCGImageAlphaPremultipliedLast保留Alpha通道，避免透明区域变成黑色。
+    CGContextDrawImage(context, rect, [self CGImage]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(context);
+    UIImage * newImage = [UIImage imageWithCGImage:imageRef];
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    CGImageRelease(imageRef);
+    return newImage;
+}
+
 #pragma mark - private
 
 // 在渲染后的二维码图上进行图片插入，如插入图为空，直接返回二维码图

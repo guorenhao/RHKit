@@ -103,6 +103,11 @@ UIImage * _Nullable RHCreateRoundCornerImage(UIImage *image, CGFloat cornerRadiu
 /// @param rect 裁剪区域
 - (nullable UIImage *)tailorInRect:(CGRect)rect;
 
+#pragma mark - gray
+
+/// 图片绘制成灰白色
+- (UIImage *)gray;
+
 @end
 
 NS_ASSUME_NONNULL_END
