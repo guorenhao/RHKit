@@ -160,7 +160,7 @@ static char rh_kEndPoint;
 
 - (void)setStartPoint:(CGPoint)startPoint {
     
-    objc_setAssociatedObject(self, &rh_kStartPoint, [NSValue valueWithCGPoint:startPoint], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &rh_kStartPoint, [NSValue valueWithCGPoint:startPoint], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (CGPoint)startPoint {
@@ -170,7 +170,7 @@ static char rh_kEndPoint;
 
 - (void)setEndPoint:(CGPoint)endPoint {
     
-    objc_setAssociatedObject(self, &rh_kEndPoint, [NSValue valueWithCGPoint:endPoint], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, &rh_kEndPoint, [NSValue valueWithCGPoint:endPoint], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (CGPoint)endPoint {
