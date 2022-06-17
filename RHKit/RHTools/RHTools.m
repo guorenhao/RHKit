@@ -26,17 +26,7 @@
  */
 + (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font width:(CGFloat)width {
     
-    if (text.length == 0 || width <= 0) {
-        
-        return 0;
-    }
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
-    label.text = text;
-    label.font = font;
-    label.numberOfLines = 0;
-    [label sizeToFit];
-    CGFloat height = label.frame.size.height;
-    return ceil(height);
+    return [self getHeightByText:text font:font width:width lines:0];
 }
 
 /**
@@ -49,6 +39,57 @@
  @return            文字高度
  */
 + (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font lineSpacing:(CGFloat)lineSpacing width:(CGFloat)width {
+    
+    return [self getHeightByText:text font:font lineSpacing:lineSpacing width:width lines:0];
+}
+
+/**
+ 获取文字高度
+ 
+ @param attributedText 属性文字
+ @param width          宽度
+ @return               文字高度
+ */
++ (CGFloat)getHeightByAttributedText:(NSAttributedString *)attributedText width:(CGFloat)width {
+    
+    return [self getHeightByAttributedText:attributedText width:width lines:0];
+}
+
+/**
+ 获取文字高度
+ 
+ @param text  文字
+ @param font  字体
+ @param width 宽度
+ @param lines          行数
+ @return      文字高度
+ */
++ (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font width:(CGFloat)width lines:(NSInteger)lines {
+    
+    if (text.length == 0 || width <= 0) {
+        
+        return 0;
+    }
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
+    label.text = text;
+    label.font = font;
+    label.numberOfLines = lines;
+    [label sizeToFit];
+    CGFloat height = label.frame.size.height;
+    return ceil(height);
+}
+
+/**
+ 获取文字高度
+ 
+ @param text        文字
+ @param font        字体
+ @param lineSpacing 行间距
+ @param width       宽度
+ @param lines          行数
+ @return            文字高度
+ */
++ (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font lineSpacing:(CGFloat)lineSpacing width:(CGFloat)width lines:(NSInteger)lines {
     
     if (text.length == 0 || width <= 0) {
         
@@ -70,7 +111,7 @@
         label.text = text;
         label.font = font;
     }
-    label.numberOfLines = 0;
+    label.numberOfLines = lines;
     [label sizeToFit];
     CGFloat height = label.frame.size.height;
     return ceil(height);
@@ -81,9 +122,10 @@
  
  @param attributedText 属性文字
  @param width          宽度
+ @param lines          行数
  @return               文字高度
  */
-+ (CGFloat)getHeightByAttributedText:(NSAttributedString *)attributedText width:(CGFloat)width {
++ (CGFloat)getHeightByAttributedText:(NSAttributedString *)attributedText width:(CGFloat)width lines:(NSInteger)lines {
     
     if (attributedText.length == 0 || width <= 0) {
         
@@ -91,7 +133,7 @@
     }
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 0)];
     label.attributedText = attributedText;
-    label.numberOfLines = 0;
+    label.numberOfLines = lines;
     [label sizeToFit];
     CGFloat height = label.frame.size.height;
     return ceil(height);

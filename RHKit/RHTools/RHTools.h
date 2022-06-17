@@ -46,6 +46,39 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)getHeightByAttributedText:(NSAttributedString *)attributedText width:(CGFloat)width;
 
 /**
+ 获取文字高度
+ 
+ @param text  文字
+ @param font  字体
+ @param width 宽度
+ @param lines          行数
+ @return      文字高度
+ */
++ (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font width:(CGFloat)width lines:(NSInteger)lines;
+
+/**
+ 获取文字高度
+ 
+ @param text        文字
+ @param font        字体
+ @param lineSpacing 行间距
+ @param width       宽度
+ @param lines          行数
+ @return            文字高度
+ */
++ (CGFloat)getHeightByText:(NSString *)text font:(UIFont *)font lineSpacing:(CGFloat)lineSpacing width:(CGFloat)width lines:(NSInteger)lines;
+
+/**
+ 获取文字高度
+ 
+ @param attributedText 属性文字
+ @param width          宽度
+ @param lines          行数
+ @return               文字高度
+ */
++ (CGFloat)getHeightByAttributedText:(NSAttributedString *)attributedText width:(CGFloat)width lines:(NSInteger)lines;
+
+/**
  获取文字宽度
  
  @param text 文字

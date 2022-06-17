@@ -48,6 +48,25 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)appBundleVersion;
 
 
+
+/// safeArea top
++ (CGFloat)safeAreaTop;
+
+/// safeArea bottom
++ (CGFloat)safeAreaBottom;
+
+/// navigation height
++ (CGFloat)navigationHeight;
+
+/// statusBar height
++ (CGFloat)statusBarHeight;
+
+/// tabBar height
++ (CGFloat)tabBarHeight;
+
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

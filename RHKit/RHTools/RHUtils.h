@@ -25,6 +25,14 @@ typedef NS_ENUM(NSUInteger, RHImageType) {
     RHImageTypeOther,       // other image format
 };
 
+//typedef NS_ENUM(NSInteger, RHLayoutAttribute) {
+//
+//    RHLayoutAttributeTop = 0,
+//    RHLayoutAttributeLeft,
+//    RHLayoutAttributeBottom,
+//    RHLayoutAttributeRight,
+//};
+
 #pragma mark - method exchange
 /// 类方法交换
 /// @param cls  类
@@ -39,16 +47,33 @@ void RHExchangeInstanceMethods(Class cls, SEL sel1, SEL sel2);
 
 #pragma mark - equal
 
+/// insets比较
+/// @param insets1 insets1
+/// @param insets2 insets2
 BOOL RHEdgeInsetsEqual(UIEdgeInsets insets1, UIEdgeInsets insets2);
 
+/// size比较
+/// @param size1 size1
+/// @param size2 size2
 BOOL RHSizeEqual(CGSize size1, CGSize size2);
 
+/// rect比较
+/// @param rect1 rect1
+/// @param rect2 rect2
 BOOL RHRectEqual(CGRect rect1, CGRect rect2);
 
+/// 坐标比较
+/// @param coordinate1 coordinate1
+/// @param coordinate2 coordinate2
 BOOL RHCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoordinate2D coordinate2);
 
-BOOL ZXStringEqual(NSString * str1, NSString * str2);
+/// 字符串比较
+/// @param str1 str1
+/// @param str2 str2
+BOOL RHStringEqual(NSString * str1, NSString * str2);
 
 #pragma mark - get image type
 
+/// 获取图片类型
+/// @param imageData imageData
 RHImageType RHImageTypeForImageData(NSData *imageData);

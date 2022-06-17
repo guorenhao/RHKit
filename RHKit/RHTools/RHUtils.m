@@ -47,27 +47,42 @@ void RHExchangeInstanceMethods(Class cls, SEL sel1, SEL sel2) {
 
 #pragma mark - equal
 
+/// insets比较
+/// @param insets1 insets1
+/// @param insets2 insets2
 BOOL RHEdgeInsetsEqual(UIEdgeInsets insets1, UIEdgeInsets insets2) {
     
     return insets1.left == insets2.left && insets1.top == insets2.top && insets1.right == insets2.right && insets1.bottom == insets2.bottom;
 }
 
+/// size比较
+/// @param size1 size1
+/// @param size2 size2
 BOOL RHSizeEqual(CGSize size1, CGSize size2) {
     
     return size1.width == size2.width && size1.height == size2.height;
 }
 
+/// rect比较
+/// @param rect1 rect1
+/// @param rect2 rect2
 BOOL RHRectEqual(CGRect rect1, CGRect rect2) {
     
     return rect1.origin.x == rect2.origin.x && rect1.origin.y == rect2.origin.y && rect1.size.width == rect2.size.width && rect1.size.height == rect2.size.height;
 }
 
+/// 坐标比较
+/// @param coordinate1 coordinate1
+/// @param coordinate2 coordinate2
 BOOL RHCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoordinate2D coordinate2) {
     
     return coordinate1.latitude == coordinate2.latitude && coordinate1.longitude == coordinate2.longitude;
 }
 
-BOOL ZXStringEqual(NSString * str1, NSString * str2) {
+/// 字符串比较
+/// @param str1 str1
+/// @param str2 str2
+BOOL RHStringEqual(NSString * str1, NSString * str2) {
     
     return [str1 isEqualToString:str2];
 }
@@ -77,6 +92,8 @@ BOOL ZXStringEqual(NSString * str1, NSString * str2) {
 #define RH_FOUR_CC(c1, c2, c3, c4) ((uint32_t)(((c4) << 24) | ((c3) << 16) | ((c2) << 8) | (c1)))
 #define RH_TWO_CC(c1, c2) ((uint16_t)(((c2) << 8) | (c1)))
 
+/// 获取图片类型
+/// @param imageData imageData
 RHImageType RHImageTypeForImageData(NSData *imageData) {
     
     if (!imageData) {
